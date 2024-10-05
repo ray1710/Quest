@@ -141,16 +141,6 @@ public class GameTest {
         assertEquals(game.eventDeck.get(14).name,"Queen’s favor");
         assertEquals(game.eventDeck.get(15).name,"Prosperity");
         assertEquals(game.eventDeck.get(16).name,"Prosperity");
-        
-
-
-
-
-
-
-
-
-
     }
 
 }
