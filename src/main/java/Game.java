@@ -6,6 +6,10 @@ public class Game {
 
     ArrayList<Card> adventureDeck;
     ArrayList<Card> eventDeck;
+    Player playerOne;
+    Player playerTwo;
+    Player playerThree;
+    Player playerFour;
 
     public Game()
     {
@@ -124,4 +128,10 @@ public class Game {
         eventDeck.add(new Card("Prosperity","Event",0));
         eventDeck.add(new Card("Prosperity","Event",0));
     }
+
+    public void distributeCards()
+    {
+
+    }
+
 }

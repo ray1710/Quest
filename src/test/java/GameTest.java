@@ -143,4 +143,17 @@ public class GameTest {
         assertEquals(game.eventDeck.get(16).name,"Prosperity");
     }
 
+    @Test
+    public void checkPlayerCards()
+    {
+        //Give out cards;
+        game.distributeCards();
+        //Check size of Player Decks and Adventure
+        assertEquals(game.playerOne.deck.size(),12);
+        assertEquals(game.playerTwo.deck.size(),12);
+        assertEquals(game.playerThree.deck.size(),12);
+        assertEquals(game.playerFour.deck.size(),12);
+        assertEquals(game.adventureDeck.size(),52);
+    }
+
 }
