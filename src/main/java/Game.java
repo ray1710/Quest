@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,6 +16,11 @@ public class Game {
     {
         adventureDeck=new ArrayList<>();
         eventDeck=new ArrayList<>();
+
+        playerOne=new Player(1);
+        playerTwo=new Player(2);
+        playerThree=new Player(3);
+        playerFour=new Player(4);
 
         //Fill up ArrayLists with card objects
         //adventureDeck
@@ -131,6 +137,25 @@ public class Game {
 
     public void distributeCards()
     {
+        Random r = new Random();
+        //use random int to give out cards
+        int randomInt;
+        for(int i=0;i<12;i++)
+        {
+            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            playerOne.addCard(adventureDeck.get(randomInt));
+            adventureDeck.remove(randomInt);
+            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            playerTwo.addCard(adventureDeck.get(randomInt));
+            adventureDeck.remove(randomInt);
+            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            playerThree.addCard(adventureDeck.get(randomInt));
+            adventureDeck.remove(randomInt);
+            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            playerFour.addCard(adventureDeck.get(randomInt));
+            adventureDeck.remove(randomInt);
+        }
+
 
     }
 

@@ -7,10 +7,15 @@ public class Player {
 
     public Player(int num)
     {
-
         deck=new ArrayList<>();
         shields=0;
         playerNumber=num;
+    }
+
+    public void addCard(Card card)
+    {
+        deck.add(card);
 
     }
+
 }
