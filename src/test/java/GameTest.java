@@ -156,4 +156,13 @@ public class GameTest {
         assertEquals(game.adventureDeck.size(),52);
     }
 
+    @Test
+    public void testPlayerTurnAndDeck()
+    {
+        game.startGame();
+        assertEquals(game.currentPlayer,game.playerOne);
+    }
+
+
+
 }

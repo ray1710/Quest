@@ -11,6 +11,8 @@ public class Game {
     Player playerTwo;
     Player playerThree;
     Player playerFour;
+    Player currentPlayer;
+
 
     public Game()
     {
@@ -156,6 +158,11 @@ public class Game {
             adventureDeck.remove(randomInt);
         }
 
+
+    }
+
+    public void startGame()
+    {
 
     }
 
