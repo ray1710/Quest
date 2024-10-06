@@ -17,4 +17,15 @@ public class Player {
         deck.add(card);
     }
 
+    public void displayDeck()
+    {
+        System.out.println("Deck");
+        for(int i=0;i<deck.size();i++)
+        {
+            System.out.println(deck.get(i).name);
+        }
+
+    }
+
+
 }

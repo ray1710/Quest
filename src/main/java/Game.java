@@ -163,7 +163,24 @@ public class Game {
 
     public void startGame()
     {
+        while(true)
+        {
+            currentPlayer=playerOne;
+            startPlayerTurn();
+            break;
+        }
+
 
     }
+
+    public void startPlayerTurn()
+    {
+        System.out.println("Player "+currentPlayer.playerNumber+" turn");
+        currentPlayer.displayDeck();
+
+
+
+    }
+
 
 }
