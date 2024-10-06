@@ -159,6 +159,7 @@ public class GameTest {
     @Test
     public void testPlayerTurnAndDeck()
     {
+        game.distributeCards();
         game.startGame();
         assertEquals(game.currentPlayer,game.playerOne);
     }

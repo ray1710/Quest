@@ -135,6 +135,8 @@ public class Game {
         eventDeck.add(new Card("Queen’s favor","Event",0));
         eventDeck.add(new Card("Prosperity","Event",0));
         eventDeck.add(new Card("Prosperity","Event",0));
+
+
     }
 
     public void distributeCards()
@@ -144,16 +146,16 @@ public class Game {
         int randomInt;
         for(int i=0;i<12;i++)
         {
-            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            randomInt = r.nextInt(adventureDeck.size());
             playerOne.addCard(adventureDeck.get(randomInt));
             adventureDeck.remove(randomInt);
-            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            randomInt = r.nextInt(adventureDeck.size());
             playerTwo.addCard(adventureDeck.get(randomInt));
             adventureDeck.remove(randomInt);
-            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            randomInt = r.nextInt(adventureDeck.size());
             playerThree.addCard(adventureDeck.get(randomInt));
             adventureDeck.remove(randomInt);
-            randomInt = r.nextInt(adventureDeck.size()) + 1;
+            randomInt = r.nextInt(adventureDeck.size());
             playerFour.addCard(adventureDeck.get(randomInt));
             adventureDeck.remove(randomInt);
         }
