@@ -163,6 +163,18 @@ public class Game {
 
 
     }
+    public void addAdventureCard(int num,Player player)
+    {
+        for(int i=0;i<num;i++)
+        {
+            Random r = new Random();
+            //use random int to give out cards
+            int randomInt=r.nextInt(adventureDeck.size());
+            player.addCard(adventureDeck.get(randomInt));
+            adventureDeck.remove(randomInt);
+        }
+    }
+
 
     public void startGame()
     {
@@ -178,12 +190,44 @@ public class Game {
     {
         System.out.println("Player "+currentPlayer.playerNumber+" turn");
         currentPlayer.displayDeck();
+        System.out.print("Getting Event Card");
+        Random r = new Random();
+        int randomInt=r.nextInt(eventDeck.size());
+        currentEventCard=eventDeck.get(randomInt);
+        eventDeck.remove(randomInt);
+
+
+
     }
 
     public void playEventCard()
     {
+        if(currentEventCard.name=="Plague")
+        {
+            if(currentPlayer.shields==1)
+            {
+                currentPlayer.shields=0;
+            }
+            else if(currentPlayer.shields>=2)
+            {
+                currentPlayer.shields= currentPlayer.shields-2;
+            }
+        }
+        else if(currentEventCard.name=="Queen’s favor")
+        {
+            addAdventureCard(2,currentPlayer);
+        }
+        else if(currentEventCard.name=="Prosperity")
+        {
+            addAdventureCard(2,playerOne);
+            addAdventureCard(2,playerTwo);
+            addAdventureCard(2,playerThree);
+            addAdventureCard(2,playerFour);
+        }
+
 
     }
+
 
 
 }
