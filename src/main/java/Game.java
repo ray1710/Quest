@@ -15,6 +15,9 @@ public class Game {
     Card currentEventCard;
 
 
+    /**
+     * Sets up game, fills up decks with cards and creates players
+     */
     public Game()
     {
         adventureDeck=new ArrayList<>();
@@ -140,6 +143,9 @@ public class Game {
 
     }
 
+    /**
+     * Gives cards to players
+     */
     public void distributeCards()
     {
         Random r = new Random();
@@ -163,6 +169,12 @@ public class Game {
 
 
     }
+
+    /**
+     * Adds cards to a players deck
+     * @param num number of cards
+     * @param player player who is receiving cards
+     */
     public void addAdventureCard(int num,Player player)
     {
         for(int i=0;i<num;i++)
@@ -175,7 +187,9 @@ public class Game {
         }
     }
 
-
+    /**
+     * Starts game, which is a loop, and breaks when a player or players have won
+     */
     public void startGame()
     {
         while(true)
@@ -185,6 +199,10 @@ public class Game {
             break;
         }
     }
+
+    /**
+     * Starts a players turn, makes them draw a event card
+     */
 
     public void startPlayerTurn()
     {
@@ -200,6 +218,9 @@ public class Game {
 
     }
 
+    /**
+     * Plays an event card
+     */
     public void playEventCard()
     {
         if(currentEventCard.name=="Plague")

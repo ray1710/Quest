@@ -14,6 +14,9 @@ public class GameTest {
         game=new Game();
     }
 
+    /**
+     * Tests to check if each adventure card is in the deck
+     */
     @Test
     public void testAdventureDeck()
     {
@@ -109,6 +112,9 @@ public class GameTest {
     }
 
     @Test
+    /**
+     * Tests to check if each event card is in the deck
+     */
     public void testEventDeck()
     {
         //Check eventDeck size
@@ -144,6 +150,9 @@ public class GameTest {
         assertEquals(game.eventDeck.get(16).name,"Prosperity");
     }
 
+    /**
+     * Checks if each player got the same number of cards
+     */
     @Test
     public void checkPlayerCards()
     {
@@ -157,6 +166,9 @@ public class GameTest {
         assertEquals(game.adventureDeck.size(),52);
     }
 
+    /**
+     * Tests that player one will go first 
+     */
     @Test
     public void testPlayerTurnAndDeck()
     {
@@ -226,6 +238,7 @@ public class GameTest {
         game.playerFour.deck.remove(11);
         game.playerFour.deck.remove(10);
         game.currentEventCard=new Card("Prosperity","Event",0);
+        game.playEventCard();
         assertEquals(game.playerOne.deck.size(),12);
         assertEquals(game.playerTwo.deck.size(),12);
         assertEquals(game.playerThree.deck.size(),12);

@@ -5,6 +5,10 @@ public class Player {
     ArrayList<Card> deck;
     int shields;
 
+    /**
+     * Sets up player
+     * @param num player number
+     */
     public Player(int num)
     {
         deck=new ArrayList<>();
@@ -12,11 +16,19 @@ public class Player {
         playerNumber=num;
     }
 
+    /**
+     * Adds card to players deck
+     * @param card the card that will be added
+     */
     public void addCard(Card card)
     {
         deck.add(card);
     }
 
+
+    /**
+     * Displays deck
+     */
     public void displayDeck()
     {
         System.out.println("Player " +this.playerNumber+ " Deck");
