@@ -12,6 +12,7 @@ public class Game {
     Player playerThree;
     Player playerFour;
     Player currentPlayer;
+    Card currentEventCard;
 
 
     public Game()
@@ -171,16 +172,16 @@ public class Game {
             startPlayerTurn();
             break;
         }
-
-
     }
 
     public void startPlayerTurn()
     {
         System.out.println("Player "+currentPlayer.playerNumber+" turn");
         currentPlayer.displayDeck();
+    }
 
-
+    public void playEventCard()
+    {
 
     }
 

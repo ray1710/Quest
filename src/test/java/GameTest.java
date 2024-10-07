@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GameTest {
 
@@ -163,6 +164,80 @@ public class GameTest {
         game.startGame();
         assertEquals(game.currentPlayer,game.playerOne);
     }
+
+    /**
+     * Checks if size of EventDeck goes down
+     * Also checks if the CurrentEventCard is not null
+     */
+    @Test
+    public void testUpdatedEventDeck()
+    {
+        game.distributeCards();
+        game.startGame();
+        assertEquals(game.eventDeck.size(),11);
+        assertNotNull(game.currentEventCard);
+    }
+
+
+    /**
+     * Tests Plague Card
+     */
+    @Test
+    public void testPlagueCard()
+    {
+        game.currentPlayer=game.playerOne;
+        game.currentPlayer.shields=8;
+        game.currentEventCard=new Card("Plague","Event",0);
+        game.playEventCard();
+        assertEquals(game.currentPlayer.shields,6);
+    }
+
+    /**
+     * Tests Queens Favour Card
+     */
+
+    @Test
+    public void testQueensFavorsCard()
+    {
+        game.distributeCards();
+        game.currentPlayer=game.playerOne;
+        game.currentPlayer.deck.remove(11);
+        game.currentPlayer.deck.remove(10);
+        game.currentEventCard=new Card("Queen’s favor","Event",0);
+        game.playEventCard();
+        assertEquals(game.currentPlayer.deck.size(),12);
+    }
+
+    /**
+     * Tests Prosperity  Card
+     */
+
+    @Test
+    public void testProsperityCard()
+    {
+        game.distributeCards();
+        game.currentPlayer=game.playerOne;
+        game.playerOne.deck.remove(11);
+        game.playerOne.deck.remove(10);
+        game.playerTwo.deck.remove(11);
+        game.playerTwo.deck.remove(10);
+        game.playerThree.deck.remove(11);
+        game.playerThree.deck.remove(10);
+        game.playerFour.deck.remove(11);
+        game.playerFour.deck.remove(10);
+        game.currentEventCard=new Card("Prosperity","Event",0);
+        assertEquals(game.playerOne.deck.size(),12);
+        assertEquals(game.playerTwo.deck.size(),12);
+        assertEquals(game.playerThree.deck.size(),12);
+        assertEquals(game.playerFour.deck.size(),12);
+
+
+
+
+
+    }
+
+
 
 
 
