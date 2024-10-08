@@ -248,6 +248,12 @@ public class Game {
 
 
     }
+    public int trimCards(Player player)
+    {
+        return -1;
+    }
+
+
 
 
 

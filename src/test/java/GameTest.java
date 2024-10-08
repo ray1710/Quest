@@ -243,11 +243,20 @@ public class GameTest {
         assertEquals(game.playerTwo.deck.size(),12);
         assertEquals(game.playerThree.deck.size(),12);
         assertEquals(game.playerFour.deck.size(),12);
+    }
 
-
-
-
-
+    /**
+     * tests the number of cards to be discarded
+     */
+    @Test
+    public void testTotalNumOfTrim()
+    {
+        game.distributeCards();
+        game.currentPlayer=game.playerOne;
+        //Will make player get 14 cards
+        game.currentEventCard=new Card("Queen’s favor","Event",0);
+        game.playEventCard();
+        assertEquals(game.trimCards(game.currentPlayer),12);
     }
 
 
