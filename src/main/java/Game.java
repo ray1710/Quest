@@ -250,7 +250,8 @@ public class Game {
     }
     public int trimCards(Player player)
     {
-        return -1;
+        int n=player.deck.size()-12;
+        return n;
     }
 
 
