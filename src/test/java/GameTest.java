@@ -256,7 +256,7 @@ public class GameTest {
         //Will make player get 14 cards
         game.currentEventCard=new Card("Queen’s favor","Event",0);
         game.playEventCard();
-        assertEquals(game.trimCards(game.currentPlayer),12);
+        assertEquals(game.trimCards(game.currentPlayer),2);
     }
 
 
