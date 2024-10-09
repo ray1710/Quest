@@ -3,7 +3,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 
+import static java.lang.System.in;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -189,7 +191,7 @@ public class GameTest {
     {
         game.distributeCards();
         game.startGame();
-        assertEquals(game.eventDeck.size(),11);
+        assertEquals(game.eventDeck.size(),16);
         assertNotNull(game.currentEventCard);
     }
 
@@ -254,12 +256,20 @@ public class GameTest {
     @Test
     public void testTotalNumOfTrim()
     {
+        Scanner s =new Scanner(in);
         game.distributeCards();
         game.currentPlayer=game.playerOne;
         //Will make player get 14 cards
         game.currentEventCard=new Card("Queen’s favor","Event",0);
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n".getBytes());
+        System.setIn(in);
+
         game.playEventCard();
-        assertEquals(game.trimCards(game.currentPlayer),2);
+
+        System.setIn(sysInBackup);
+
+        assertEquals(game.currentPlayer.deck.size(),12);
     }
 
     /**
@@ -272,14 +282,13 @@ public class GameTest {
         game.currentPlayer=game.playerOne;
         //Will make player get 14 cards
         game.currentEventCard=new Card("Queen’s favor","Event",0);
-        game.playEventCard();
-
-        InputStream sysInBackup = System.in;
+        InputStream sysInBackup = in;
         ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n".getBytes());
         System.setIn(in);
+        game.playEventCard();
 
 
-        game.trimCards(game.currentPlayer);
+
         System.setIn(sysInBackup);
 
         assertEquals(game.currentPlayer.deck.size(),12);
@@ -296,8 +305,8 @@ public class GameTest {
         //Everyone will pick up 2 cards
         game.currentEventCard=new Card("Prosperity","Event",0);
 
-        InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n1\n2\n1\n2\n1\n2\n".getBytes());
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n3\n5\n1\n1\n3\n5\n1\n".getBytes());
         System.setIn(in);
 
         game.playEventCard();

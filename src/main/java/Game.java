@@ -34,6 +34,7 @@ public class Game {
         playerThree=new Player(3);
         playerFour=new Player(4);
 
+
         //Fill up ArrayLists with card objects
         //adventureDeck
         int i;
@@ -243,7 +244,7 @@ public class Game {
         else if(currentEventCard.name=="Queen’s favor")
         {
             addAdventureCard(2,currentPlayer);
-            trimCards(currentPlayer);
+            trimCards(currentPlayer,new Scanner(in));
         }
         else if(currentEventCard.name=="Prosperity")
         {
@@ -252,10 +253,12 @@ public class Game {
             addAdventureCard(2,playerThree);
             addAdventureCard(2,playerFour);
 
-            trimCards(playerOne);
-            trimCards(playerTwo);
-            trimCards(playerThree);
-            trimCards(playerFour);
+            Scanner s =new Scanner(in);
+
+            trimCards(playerOne,s);
+            trimCards(playerTwo,s);
+            trimCards(playerThree,s);
+            trimCards(playerFour,s);
 
         }
 
@@ -267,15 +270,14 @@ public class Game {
      * @param player: which player cards will be trimmed
      * @return: num of cards to be removed
      */
-    public int trimCards(Player player)
+    public int trimCards(Player player, Scanner s)
     {
-        Scanner keyboard=new Scanner(System.in);
         int n=player.deck.size()-12;
         for(int i=0;i<n;)
         {
             System.out.println("Please enter a number to get rid of a card");
             player.displayDeck();
-            int input = keyboard.nextInt();
+            int input = s.nextInt();
             System.out.println("Input: "+input);
             boolean result=player.removeCard(input-1);
             if(result)
