@@ -1,7 +1,10 @@
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
+import static java.lang.System.in;
+import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Game {
@@ -14,7 +17,6 @@ public class Game {
     Player playerFour;
     Player currentPlayer;
     Card currentEventCard;
-    InputStream sysInBackup = System.in; // backup System.in to restore it later
 
 
 
@@ -254,7 +256,20 @@ public class Game {
     }
     public int trimCards(Player player)
     {
+        Scanner keyboard=new Scanner(in);
         int n=player.deck.size()-12;
+        for(int i=0;i<n;)
+        {
+            System.out.println("Please enter a number to get rid of a card");
+            player.displayDeck();
+            int input =keyboard.nextInt();
+            boolean result=player.removeCard(input-1);
+            if(result)
+            {
+                i++;
+            }
+
+        }
         return n;
     }
 

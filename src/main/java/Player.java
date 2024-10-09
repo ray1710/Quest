@@ -25,6 +25,18 @@ public class Player {
         deck.add(card);
     }
 
+    boolean removeCard(int i)
+    {
+        if((i<0)||(i>deck.size()))
+        {
+            System.out.print("Invalid Num");
+            return false;
+        }
+        deck.remove(i);
+        return true;
+
+    }
+
 
     /**
      * Displays deck
@@ -45,6 +57,7 @@ public class Player {
             }
         }
         System.out.print("}");
+        System.out.println("");
 
 
     }
