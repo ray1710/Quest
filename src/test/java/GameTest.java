@@ -259,6 +259,22 @@ public class GameTest {
         assertEquals(game.trimCards(game.currentPlayer),2);
     }
 
+    /**
+     *tests if the deck reduces in size;
+     */
+    @Test
+    public void testTrimDeck()
+    {
+        game.distributeCards();
+        game.currentPlayer=game.playerOne;
+        //Will make player get 14 cards
+        game.currentEventCard=new Card("Queen’s favor","Event",0);
+        game.playEventCard();
+        game.trimCards(game.currentPlayer);
+        assertEquals(game.currentPlayer.deck.size(),12);
+    }
+
+
 
 
 

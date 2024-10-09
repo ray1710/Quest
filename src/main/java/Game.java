@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,6 +14,9 @@ public class Game {
     Player playerFour;
     Player currentPlayer;
     Card currentEventCard;
+    InputStream sysInBackup = System.in; // backup System.in to restore it later
+
+
 
 
     /**
