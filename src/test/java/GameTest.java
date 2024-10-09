@@ -282,14 +282,30 @@ public class GameTest {
         game.trimCards(game.currentPlayer);
         System.setIn(sysInBackup);
 
-
-
         assertEquals(game.currentPlayer.deck.size(),12);
     }
 
+    /**
+     * Testing to make sure that after eventCard, each player card is trimmed, without calling trimCards();
+     */
+    @Test
+    public void trimAfterEvent()
+    {
+        game.distributeCards();
+        game.currentPlayer=game.playerOne;
+        //Everyone will pick up 2 cards
+        game.currentEventCard=new Card("Prosperity","Event",0);
 
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n1\n2\n1\n2\n1\n2\n".getBytes());
+        System.setIn(in);
 
+        game.playEventCard();
+        System.setIn(sysInBackup);
 
-
-
+        assertEquals(game.playerOne.deck.size(),12);
+        assertEquals(game.playerTwo.deck.size(),12);
+        assertEquals(game.playerThree.deck.size(),12);
+        assertEquals(game.playerFour.deck.size(),12);
+    }
 }
