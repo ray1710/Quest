@@ -243,6 +243,7 @@ public class Game {
         else if(currentEventCard.name=="Queen’s favor")
         {
             addAdventureCard(2,currentPlayer);
+            trimCards(currentPlayer);
         }
         else if(currentEventCard.name=="Prosperity")
         {
@@ -250,6 +251,12 @@ public class Game {
             addAdventureCard(2,playerTwo);
             addAdventureCard(2,playerThree);
             addAdventureCard(2,playerFour);
+
+            trimCards(playerOne);
+            trimCards(playerTwo);
+            trimCards(playerThree);
+            trimCards(playerFour);
+
         }
 
 
@@ -262,13 +269,14 @@ public class Game {
      */
     public int trimCards(Player player)
     {
-        Scanner keyboard=new Scanner(in);
+        Scanner keyboard=new Scanner(System.in);
         int n=player.deck.size()-12;
         for(int i=0;i<n;)
         {
             System.out.println("Please enter a number to get rid of a card");
             player.displayDeck();
-            int input =keyboard.nextInt();
+            int input = keyboard.nextInt();
+            System.out.println("Input: "+input);
             boolean result=player.removeCard(input-1);
             if(result)
             {
@@ -278,6 +286,8 @@ public class Game {
         }
         return n;
     }
+
+
 
 
 
