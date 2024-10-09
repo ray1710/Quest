@@ -254,6 +254,12 @@ public class Game {
 
 
     }
+
+    /**
+     *
+     * @param player: which player cards will be trimmed
+     * @return: num of cards to be removed
+     */
     public int trimCards(Player player)
     {
         Scanner keyboard=new Scanner(in);

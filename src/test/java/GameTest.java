@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -270,7 +273,17 @@ public class GameTest {
         //Will make player get 14 cards
         game.currentEventCard=new Card("Queen’s favor","Event",0);
         game.playEventCard();
+
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n".getBytes());
+        System.setIn(in);
+
+
         game.trimCards(game.currentPlayer);
+        System.setIn(sysInBackup);
+
+
+
         assertEquals(game.currentPlayer.deck.size(),12);
     }
 
