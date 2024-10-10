@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -199,10 +200,26 @@ public class Game {
      */
     public void startGame()
     {
+        Scanner s=new Scanner(in);
         while(true)
         {
+
             currentPlayer=playerOne;
             startPlayerTurn();
+            System.out.println("Press the return key to end turn");
+            s.nextLine();
+            currentPlayer=playerTwo;
+            startPlayerTurn();
+            System.out.println("Press the return key to end turn");
+            s.nextLine();
+            currentPlayer=playerThree;
+            startPlayerTurn();
+            System.out.println("Press the return key to end turn");
+            s.nextLine();
+            currentPlayer=playerFour;
+            startPlayerTurn();
+            System.out.println("Press the return key to end turn");
+            s.nextLine();
             break;
         }
     }
@@ -215,11 +232,12 @@ public class Game {
     {
         System.out.println("Player "+currentPlayer.playerNumber+" turn");
         currentPlayer.displayDeck();
-        System.out.print("Getting Event Card");
+        System.out.println("Getting Event Card");
         Random r = new Random();
         int randomInt=r.nextInt(eventDeck.size());
         currentEventCard=eventDeck.get(randomInt);
         eventDeck.remove(randomInt);
+        playEventCard();
 
 
 
@@ -230,6 +248,7 @@ public class Game {
      */
     public void playEventCard()
     {
+        System.out.println("The event card: "+currentEventCard.name);
         if(currentEventCard.name=="Plague")
         {
             if(currentPlayer.shields==1)
