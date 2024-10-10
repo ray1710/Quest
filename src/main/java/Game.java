@@ -206,19 +206,51 @@ public class Game {
         {
             nextPlayer(1,s);
             startPlayerTurn();
+            if(checkWinner()){break;}
             nextPlayer(2,s);
             startPlayerTurn();
+            if(checkWinner()){break;}
             nextPlayer(3,s);
             startPlayerTurn();
+            if(checkWinner()){break;}
             nextPlayer(4,s);
             startPlayerTurn();
+            if(checkWinner()){break;}
             break;
         }
     }
 
-    public void checkWinner()
+    public boolean checkWinner()
     {
-        
+        boolean winner=false;
+        out.println("");
+
+        if(playerOne.shields>=7)
+        {
+            out.print("Player 1, ");
+            winner=true;
+        }
+        if(playerTwo.shields>=7)
+        {
+            out.print("Player 2, ");
+            winner=true;
+        }
+        if(playerThree.shields>=7)
+        {
+            out.print("Player 3, ");
+            winner=true;
+        }
+        if(playerFour.shields>=7)
+        {
+            out.print("Player 4, ");
+            winner=true;
+        }
+        if(winner)
+        {
+            out.print("has won");
+            return winner;
+        }
+        return false;
 
     }
 
