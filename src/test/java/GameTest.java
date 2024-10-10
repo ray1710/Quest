@@ -1,13 +1,11 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Scanner;
 
 import static java.lang.System.in;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
@@ -317,4 +315,32 @@ public class GameTest {
         assertEquals(game.playerThree.deck.size(),12);
         assertEquals(game.playerFour.deck.size(),12);
     }
+
+    /**
+     * Checks if the currentPlayer is changes from one to two
+     */
+    @Test
+    public void testEndOfPlayersTurn()
+    {
+        game.distributeCards();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            game.startGame();
+            String capturedOutput = outputStream.toString();
+            String expectedOutput = "Player 2 turn";
+            assertTrue(capturedOutput.contains(expectedOutput));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
+
+
+
+
 }
+
+
+
