@@ -216,6 +216,12 @@ public class Game {
         }
     }
 
+    public void checkWinner()
+    {
+        
+
+    }
+
     public void nextPlayer(int playerNum, Scanner s)
     {
         out.println("Press return key to end turn");

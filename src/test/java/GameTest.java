@@ -348,8 +348,39 @@ public class GameTest {
         System.setIn(sysInBackup);
 
         assertEquals(game.currentPlayer.playerNumber,2);
+    }
+
+    /**
+     * Checks if players shields are above 7, and make them a winner
+     */
+    @Test
+    public void checkIfWinners()
+    {
+        game.playerOne.shields=5;
+        game.playerTwo.shields=6;
+        game.playerThree.shields=9;
+        game.playerFour.shields=7;
+
+        //Player 3 and 4 should win
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        try {
+            game.checkWinner();
+            String capturedOutput = outputStream.toString();
+            String expectedOutput = "Player 3 and 4 has won";
+            assertTrue(capturedOutput.contains(expectedOutput));
+        } finally {
+            System.setOut(originalOut);
+        }
 
     }
+
+
+
 
 
 
