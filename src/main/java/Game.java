@@ -220,6 +220,11 @@ public class Game {
         }
     }
 
+    /**
+     * Checks if there is a player with more then 7 shields, which delcares winner
+     * @return: true if a winner, false if no winner
+     */
+
     public boolean checkWinner()
     {
         boolean winner=false;

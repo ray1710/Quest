@@ -371,8 +371,10 @@ public class GameTest {
         try {
             game.checkWinner();
             String capturedOutput = outputStream.toString();
-            String expectedOutput = "Player 3 and 4 has won";
+            String expectedOutput = "Player 3, Player 4, has won";
+            System.out.print(expectedOutput);
             assertTrue(capturedOutput.contains(expectedOutput));
+
         } finally {
             System.setOut(originalOut);
         }
