@@ -176,8 +176,16 @@ public class GameTest {
     public void testPlayerTurnAndDeck()
     {
         game.distributeCards();
-        game.startGame();
-        assertEquals(game.currentPlayer,game.playerOne);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream(" ".getBytes());
+        System.setIn(in);
+
+        game.nextPlayer(1,new Scanner(in));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.currentPlayer.playerNumber,1);
+
     }
 
     /**
@@ -188,7 +196,15 @@ public class GameTest {
     public void testUpdatedEventDeck()
     {
         game.distributeCards();
-        game.startGame();
+        game.currentPlayer=game.playerOne;
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n".getBytes());
+        System.setIn(in);
+        game.SetEventNewCard();
+
+
+
+        System.setIn(sysInBackup);
         assertEquals(game.eventDeck.size(),16);
         assertNotNull(game.currentEventCard);
     }
@@ -323,18 +339,16 @@ public class GameTest {
     public void testEndOfPlayersTurn()
     {
         game.distributeCards();
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
 
-        try {
-            game.startGame();
-            String capturedOutput = outputStream.toString();
-            String expectedOutput = "Player 2 turn";
-            assertTrue(capturedOutput.contains(expectedOutput));
-        } finally {
-            System.setOut(originalOut);
-        }
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream(" ".getBytes());
+        System.setIn(in);
+
+        game.nextPlayer(2,new Scanner(in));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.currentPlayer.playerNumber,2);
+
     }
 
 

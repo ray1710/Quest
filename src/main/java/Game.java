@@ -200,44 +200,69 @@ public class Game {
      */
     public void startGame()
     {
-        Scanner s=new Scanner(in);
+        Scanner s =new Scanner(in);
+        out.println("Welcome to Quest, press return to start");
         while(true)
         {
-
-            currentPlayer=playerOne;
+            nextPlayer(1,s);
             startPlayerTurn();
-            System.out.println("Press the return key to end turn");
-            s.nextLine();
-            currentPlayer=playerTwo;
+            nextPlayer(2,s);
             startPlayerTurn();
-            System.out.println("Press the return key to end turn");
-            s.nextLine();
-            currentPlayer=playerThree;
+            nextPlayer(3,s);
             startPlayerTurn();
-            System.out.println("Press the return key to end turn");
-            s.nextLine();
-            currentPlayer=playerFour;
+            nextPlayer(4,s);
             startPlayerTurn();
-            System.out.println("Press the return key to end turn");
-            s.nextLine();
             break;
         }
     }
 
-    /**
-     * Starts a players turn, makes them draw a event card
-     */
+    public void nextPlayer(int playerNum, Scanner s)
+    {
+        out.println("Press return key to end turn");
+        s.nextLine();
+        if(playerNum==1)
+        {
+            currentPlayer=playerOne;
+        }
+        else if(playerNum==2)
+        {
+            currentPlayer=playerTwo;
+        }
+        if(playerNum==3)
+        {
+            currentPlayer=playerThree;
+        }
+        if(playerNum==4)
+        {
+            currentPlayer=playerFour;
+        }
 
+
+    }
+
+
+
+    /**
+     * Starts a players turn, makes them draw an event card
+     */
     public void startPlayerTurn()
     {
         System.out.println("Player "+currentPlayer.playerNumber+" turn");
         currentPlayer.displayDeck();
+        SetEventNewCard();
+        playEventCard();
+    }
+
+    public void  SetEventNewCard()
+    {
+        Scanner s =new Scanner(in);
+        System.out.println("Press return to get a event card");
+        s.nextLine();
         System.out.println("Getting Event Card");
         Random r = new Random();
         int randomInt=r.nextInt(eventDeck.size());
         currentEventCard=eventDeck.get(randomInt);
         eventDeck.remove(randomInt);
-        playEventCard();
 
 
 
@@ -307,6 +332,9 @@ public class Game {
         }
         return n;
     }
+
+
+
 
 
 
