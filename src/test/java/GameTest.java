@@ -399,8 +399,24 @@ public class GameTest {
         System.setIn(sysInBackup);
 
         assertEquals(game.sponsor,game.playerFour);
-        assertEquals(game.eligiblePlayers.length,3);
+        assertEquals(game.eligiblePlayers.size(),3);
+        assertEquals(game.eligiblePlayers.get(0),game.playerOne);
+        assertEquals(game.eligiblePlayers.get(1),game.playerTwo);
+        assertEquals(game.eligiblePlayers.get(2),game.playerThree);
 
+        //Check if sponsor is null if everyone says N
+        game.sponsor=null;
+        game.eligiblePlayers.clear();
+
+        sysInBackup = in;
+        in = new ByteArrayInputStream("N\nN\nN\nN\n".getBytes());
+        System.setIn(in);
+
+        game.SetSponsor(new Scanner(in));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.sponsor,null);
+        assertEquals(game.eligiblePlayers.size(),0);
     }
 
 

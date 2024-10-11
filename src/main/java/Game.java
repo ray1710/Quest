@@ -392,14 +392,15 @@ public class Game {
             out.println("Does Player "+players[i].playerNumber+" want to be a sponsor (Y/N)");
             String input=s.nextLine();
 
-            if(input=="Y")
+            if(input.equals("Y"))
             {
                 sponsor=players[i];
                 for(int j=0;j<players.length;j++)
                 {
                     if(i!=j)
                     {
-                        eligiblePlayers.add(players[i]);
+                        eligiblePlayers.add(players[j]);
+
                     }
                 }
 
