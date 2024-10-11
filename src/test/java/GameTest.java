@@ -381,6 +381,28 @@ public class GameTest {
 
     }
 
+    /**
+     * Tests if the right sponsor is chosen
+     */
+    @Test
+    public void testIfOfferedSponsor()
+    {
+        game.currentPlayer=game.playerOne;
+        game.currentEventCard=new Card("Q4","Event",4);
+
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\nY\n".getBytes());
+        System.setIn(in);
+
+        game.SetSponsor(new Scanner(in));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.sponsor,game.playerFour);
+        assertEquals(game.eligiblePlayers.length,3);
+
+    }
+
 
 
 
