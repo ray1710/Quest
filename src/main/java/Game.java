@@ -1,5 +1,3 @@
-import java.io.Console;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,12 +10,14 @@ public class Game {
 
     ArrayList<Card> adventureDeck;
     ArrayList<Card> eventDeck;
+    ArrayList<Player> eligiblePlayers;
     Player playerOne;
     Player playerTwo;
     Player playerThree;
     Player playerFour;
     Player currentPlayer;
     Card currentEventCard;
+    Player sponsor;
 
 
 
@@ -29,11 +29,14 @@ public class Game {
     {
         adventureDeck=new ArrayList<>();
         eventDeck=new ArrayList<>();
+        eligiblePlayers=new ArrayList<>();
 
         playerOne=new Player(1);
         playerTwo=new Player(2);
         playerThree=new Player(3);
         playerFour=new Player(4);
+
+
 
 
         //Fill up ArrayLists with card objects
@@ -375,6 +378,37 @@ public class Game {
         }
         return n;
     }
+
+    /**
+     * Asks player if they want to be a sponsor
+     * @param s: Scanner to read input
+     */
+
+    public void SetSponsor(Scanner s)
+    {
+        Player players[]={playerOne,playerTwo,playerThree,playerFour};
+        for(int i=0;i<players.length;i++)
+        {
+            out.println("Does Player "+players[i].playerNumber+" want to be a sponsor (Y/N)");
+            String input=s.nextLine();
+
+            if(input=="Y")
+            {
+                sponsor=players[i];
+                for(int j=0;j<players.length;j++)
+                {
+                    if(i!=j)
+                    {
+                        eligiblePlayers.add(players[i]);
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
 
 
 
