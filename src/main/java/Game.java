@@ -426,6 +426,7 @@ public class Game {
     {
         for(int i=0;i<currentEventCard.value;i++)
         {
+            boolean foeCard=false;
             ArrayList<Integer> indexes=new ArrayList<>();
             out.println("Sponsor Deck");
             sponsor.displayDeck();
@@ -436,7 +437,6 @@ public class Game {
                 String input=s.nextLine();
                 if(input.equals("Quit"))
                 {
-                    sponsor.displayDeck();
                     for(int j=0;j<indexes.size();j++)
                     {
                         sponsor.removeCard(indexes.get(j)-j);
@@ -445,14 +445,54 @@ public class Game {
                     break;
                 }
                 int index= Integer.valueOf(input);
-                indexes.add(index-1);
-                stage.get(i).add(sponsor.deck.get(index-1));
-                stage.get(i).get(0);
+                if(sponsor.deck.get(index-1).type.equals("Foe") && foeCard)
+                {
+                    out.println("Only allowed one foe card");
+                }
+                else
+                {
+                    indexes.add(index-1);
+                    if(sponsor.deck.get(index-1).type.equals("Foe"))
+                    {
+                        foeCard=true;
+                    }
+                    stage.get(i).add(sponsor.deck.get(index-1));
+                    displayStageDeck();
+
+                }
+
             }
+
+
 
         }
 
     }
+
+    public void displayStageDeck()
+    {
+        System.out.print("{");
+        for(int i=0;i< stage.size();i++)
+        {
+            System.out.print("{");
+            for(int j=0;j<stage.get(i).size();j++)
+            {
+                if(j==stage.get(i).size()-1)
+                {
+                    out.print(stage.get(i).get(j).name);
+                }
+                else
+                {
+                    out.print(stage.get(i).get(j).name+", ");
+                }
+            }
+            System.out.print("}");
+
+        }
+        System.out.print("} ");
+        System.out.println("");
+    }
+
 
 
 

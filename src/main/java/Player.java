@@ -43,7 +43,6 @@ public class Player {
      */
     public void displayDeck()
     {
-        System.out.println("Player " +this.playerNumber+ " Deck");
         System.out.print("{");
         for(int i=0;i<deck.size();i++)
         {
