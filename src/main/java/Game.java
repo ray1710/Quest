@@ -449,6 +449,10 @@ public class Game {
                 {
                     out.println("Only allowed one foe card");
                 }
+                else if(checkDuplicateWeapon(i,sponsor.deck.get(index-1).name) && sponsor.deck.get(index-1).type.equals("Weapon"))
+                {
+                    out.println("No Repeated Weapon Cards");
+                }
                 else
                 {
                     if(sponsor.deck.get(index-1).type.equals("Foe"))
@@ -474,6 +478,20 @@ public class Game {
         }
 
     }
+
+    public boolean checkDuplicateWeapon(int i,String weapon)
+    {
+        for(int j=0;j<stage.get(i).size();j++)
+        {
+            if(stage.get(i).get(j).name.equals(weapon))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
     public void displayStageDeck()
     {
