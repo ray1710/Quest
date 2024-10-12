@@ -451,14 +451,20 @@ public class Game {
                 }
                 else
                 {
-                    indexes.add(index-1);
                     if(sponsor.deck.get(index-1).type.equals("Foe"))
                     {
                         foeCard=true;
                     }
-                    stage.get(i).add(sponsor.deck.get(index-1));
-                    displayStageDeck();
-
+                    if(indexes.contains(index-1))
+                    {
+                        out.println("Already on Stage");
+                    }
+                    else
+                    {
+                        stage.get(i).add(sponsor.deck.get(index-1));
+                        displayStageDeck();
+                        indexes.add(index-1);
+                    }
                 }
 
             }

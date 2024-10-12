@@ -486,15 +486,17 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n3\nQuit\n1\n2\nQuit\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n4\nQuit\n1\n3\nQuit\n".getBytes());
         System.setIn(in);
 
         try {
             game.SetStages(new Scanner(in));
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
-            String expectedOutput = "Only allowed one foe card";
-            assertTrue(capturedOutput.contains(expectedOutput));
+            String expectedOutput1 = "Only allowed one foe card";
+            String expectedOutput2 = "{{F5, D5}{F10, H10}}";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+            assertTrue(capturedOutput.contains(expectedOutput2));
 
         } finally {
             System.setOut(originalOut);
