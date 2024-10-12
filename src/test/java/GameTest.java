@@ -458,6 +458,48 @@ public class GameTest {
         assertEquals(game.stage.get(1).get(0).name,"F15");
         assertEquals(game.stage.get(1).get(1).name,"H10");
 
+    }
+
+    /**
+     * Checks if there is another foe card in the stage (RESP 11)
+     */
+    @Test
+    public void testSoleFoeStage()
+    {
+        //make player 1 the sponsor
+        game.sponsor=game.playerOne;
+
+        //Make the event card a Q2 card
+        game.currentEventCard=new Card("Q2","Event",2);
+
+        //Give out cards
+        game.sponsor.addCard(new Card("F5","Foe",5));
+        game.sponsor.addCard(new Card("F10","Foe",10));
+        game.sponsor.addCard(new Card("F15","Foe",15));
+        game.sponsor.addCard(new Card("D5","Weapon",5));
+        game.sponsor.addCard(new Card("H10","Weapon",10));
+
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n3\nQuit\n1\n2\nQuit\n".getBytes());
+        System.setIn(in);
+
+        try {
+            game.SetStages(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput = "Only allowed one foe card";
+            assertTrue(capturedOutput.contains(expectedOutput));
+
+        } finally {
+            System.setOut(originalOut);
+        }
+
 
 
     }
