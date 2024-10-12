@@ -417,6 +417,11 @@ public class Game {
         }
     }
 
+    /**
+     * Sets up stages for each round
+     * @param s: Scanner Obj
+     */
+
     public void SetStages(Scanner s)
     {
         for(int i=0;i<currentEventCard.value;i++)
@@ -446,9 +451,6 @@ public class Game {
             }
 
         }
-        
-
-
 
     }
 

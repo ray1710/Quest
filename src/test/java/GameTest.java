@@ -170,7 +170,7 @@ public class GameTest {
     }
 
     /**
-     * Tests that player one will go first 
+     * Tests that player one will go first
      */
     @Test
     public void testPlayerTurnAndDeck()
@@ -435,12 +435,12 @@ public class GameTest {
         //Add cards to sponsor deck
         game.sponsor.addCard(new Card("F5","Foe",5));
         game.sponsor.addCard(new Card("F15","Foe",15));
-        game.sponsor.addCard(new Card("D5","Foe",5));
-        game.sponsor.addCard(new Card("H10","Foe",10));
+        game.sponsor.addCard(new Card("D5","Weapon",5));
+        game.sponsor.addCard(new Card("H10","Weapon",10));
 
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n3\nQuit\n2\n4\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n3\nQuit\n1\n2\nQuit\n".getBytes());
         System.setIn(in);
 
         game.SetStages(new Scanner(in));
@@ -451,15 +451,16 @@ public class GameTest {
         //Checks if we have two cards in the first and second stage
         assertEquals(game.stage.get(0).size(),2);
         assertEquals(game.stage.get(1).size(),2);
+
+        //Check if the right cards are in the right stages
+        assertEquals(game.stage.get(0).get(0).name,"F5");
+        assertEquals(game.stage.get(0).get(1).name,"D5");
+        assertEquals(game.stage.get(1).get(0).name,"F15");
+        assertEquals(game.stage.get(1).get(1).name,"H10");
+
+
+
     }
-
-
-
-
-
-
-
-
 }
 
 
