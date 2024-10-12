@@ -420,6 +420,41 @@ public class GameTest {
     }
 
 
+    /**
+     * Test if the stage created passes all the requirements
+     */
+    @Test
+    public void testStageBuild()
+    {
+        //make player 1 the sponsor
+        game.sponsor=game.playerOne;
+
+        //Make the event card a Q2 card
+        game.currentEventCard=new Card("Q2","Event",2);
+
+        //Add cards to sponsor deck
+        game.sponsor.addCard(new Card("F5","Foe",5));
+        game.sponsor.addCard(new Card("F15","Foe",15));
+        game.sponsor.addCard(new Card("D5","Foe",5));
+        game.sponsor.addCard(new Card("H10","Foe",10));
+
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n3\nQuit\n2\n4\n".getBytes());
+        System.setIn(in);
+
+        game.SetStages(new Scanner(in));
+        System.setIn(sysInBackup);
+
+        //Check if playerDeck is empty, since we use all cards
+        assertEquals(game.sponsor.deck.size(),0);
+        //Checks if we have two cards in the first and second stage
+        assertEquals(game.stage.get(0).size(),2);
+        assertEquals(game.stage.get(1).size(),2);
+    }
+
+
+
 
 
 
