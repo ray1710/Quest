@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class Game {
     ArrayList<Card> adventureDeck;
     ArrayList<Card> eventDeck;
     ArrayList<Player> eligiblePlayers;
+    ArrayList<ArrayList<Card>> stage;
     Player playerOne;
     Player playerTwo;
     Player playerThree;
@@ -30,6 +32,7 @@ public class Game {
         adventureDeck=new ArrayList<>();
         eventDeck=new ArrayList<>();
         eligiblePlayers=new ArrayList<>();
+        stage=new ArrayList<>();
 
         playerOne=new Player(1);
         playerTwo=new Player(2);
@@ -378,12 +381,18 @@ public class Game {
         }
         return n;
     }
+    public void StartQuest(Scanner s)
+    {
+        SetSponsor(s);
+        SetStages(s);
+
+    }
+
 
     /**
      * Asks player if they want to be a sponsor
      * @param s: Scanner to read input
      */
-
     public void SetSponsor(Scanner s)
     {
         Player players[]={playerOne,playerTwo,playerThree,playerFour};
@@ -406,11 +415,42 @@ public class Game {
 
             }
         }
+    }
+
+    public void SetStages(Scanner s)
+    {
+        for(int i=0;i<currentEventCard.value;i++)
+        {
+            ArrayList<Integer> indexes=new ArrayList<>();
+            out.println("Sponsor Deck");
+            sponsor.displayDeck();
+            out.println("Enter a Card to the Round "+(i+1)+", Type in Quit when done");
+            stage.add(new ArrayList<>());
+            while (true)
+            {
+                String input=s.nextLine();
+                if(input.equals("Quit"))
+                {
+                    sponsor.displayDeck();
+                    for(int j=0;j<indexes.size();j++)
+                    {
+                        sponsor.removeCard(indexes.get(j)-j);
+                    }
+                    indexes.clear();
+                    break;
+                }
+                int index= Integer.valueOf(input);
+                indexes.add(index-1);
+                stage.get(i).add(sponsor.deck.get(index-1));
+                stage.get(i).get(0);
+            }
+
+        }
+        
+
 
 
     }
-
-
 
 
 
