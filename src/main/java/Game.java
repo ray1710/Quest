@@ -527,6 +527,10 @@ public class Game {
                 int randomInt = r.nextInt(adventureDeck.size());
                 eligiblePlayers.get(i).addCard(adventureDeck.get(randomInt));
                 adventureDeck.remove(randomInt);
+                if(eligiblePlayers.get(i).deck.size()>12)
+                {
+                    trimCards(eligiblePlayers.get(i),s);
+                }
             }
         }
 
