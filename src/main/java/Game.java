@@ -424,6 +424,7 @@ public class Game {
 
     public void SetStages(Scanner s)
     {
+        int previousValue=0;
         for(int i=0;i<currentEventCard.value;i++)
         {
             boolean foeCard=false;
@@ -440,59 +441,50 @@ public class Game {
                     if(stage.get(i).size()==0)
                     {
                         out.println("No Empty Stage");
-                        while (true)
+
+                    }
+                    else
+                    {
+                        if(calculateValue(i)<previousValue)
                         {
-                            input=s.nextLine();
-                            if(!input.equals("Quit"))
-                            {
-                                break;
+                            out.println("Insufficient value for this stage");
+                            indexes.clear();
+                            stage.get(i).clear();
+                            foeCard=false;
+                        }
+                        else
+                        {
+                            for (int j = 0; j < indexes.size(); j++) {
+                                sponsor.removeCard(indexes.get(j) - j);
                             }
+                            indexes.clear();
+                            previousValue=calculateValue(i);
+                            break;
                         }
-                    }
-                    else
-                    {
-                        for(int j=0;j<indexes.size();j++)
-                        {
-                            sponsor.removeCard(indexes.get(j)-j);
-                        }
-                        indexes.clear();
-                        break;
                     }
 
                 }
-                int index= Integer.valueOf(input);
-                if(sponsor.deck.get(index-1).type.equals("Foe") && foeCard)
-                {
-                    out.println("Only allowed one foe card");
-                }
-                else if(checkDuplicateWeapon(i,sponsor.deck.get(index-1).name) && sponsor.deck.get(index-1).type.equals("Weapon"))
-                {
-                    out.println("No Repeated Weapon Cards");
-                }
-                else
-                {
-                    if(sponsor.deck.get(index-1).type.equals("Foe"))
-                    {
-                        foeCard=true;
-                    }
-                    if(indexes.contains(index-1))
-                    {
-                        out.println("Already on Stage");
-                    }
-                    else
-                    {
-                        stage.get(i).add(sponsor.deck.get(index-1));
-                        displayStageDeck();
-                        indexes.add(index-1);
+                else {
+                    int index = Integer.valueOf(input);
+                    if (sponsor.deck.get(index - 1).type.equals("Foe") && foeCard) {
+                        out.println("Only allowed one foe card");
+                    } else if (checkDuplicateWeapon(i, sponsor.deck.get(index - 1).name) && sponsor.deck.get(index - 1).type.equals("Weapon")) {
+                        out.println("No Repeated Weapon Cards");
+                    } else {
+                        if (sponsor.deck.get(index - 1).type.equals("Foe")) {
+                            foeCard = true;
+                        }
+                        if (indexes.contains(index - 1)) {
+                            out.println("Already on Stage");
+                        } else {
+                            stage.get(i).add(sponsor.deck.get(index - 1));
+                            displayStageDeck();
+                            indexes.add(index - 1);
+                        }
                     }
                 }
-
             }
-
-
-
         }
-
     }
 
     public boolean checkDuplicateWeapon(int i,String weapon)
@@ -506,6 +498,17 @@ public class Game {
         }
         return false;
 
+    }
+
+    public int calculateValue(int index)
+    {
+        int total=0;
+        for(int i=0;i<stage.get(index).size();i++)
+        {
+            total+=stage.get(index).get(i).value;
+        }
+
+        return total;
     }
 
 
