@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.in;
@@ -655,6 +656,46 @@ public class GameTest {
 
     }
 
+    @Test
+    public void testEligiblePlayers() {
+        //Sets up the event card
+        game.currentEventCard = new Card("Q2", "Event", 2);
+
+        //Set the sponsor
+        InputStream sysInBackup = in;
+        ByteArrayInputStream input = new ByteArrayInputStream("Y\n".getBytes());
+        System.setIn(input);
+
+
+        game.SetSponsor(new Scanner(input));
+        System.setIn(sysInBackup);
+
+        //Set the stage
+        game.stage.add(new ArrayList<>());
+        game.stage.get(0).add(new Card("F5", "Foe", 5));
+        game.stage.get(0).add(new Card("D5", "Weapon", 5));
+
+        //Players deck must add up to at least 10 in round 1;
+        game.playerTwo.addCard(new Card("F10", "Foe", 10));
+        game.playerThree.addCard(new Card("F10", "Foe", 10));
+        game.playerFour.addCard(new Card("F5", "Foe", 5));
+
+
+        //Call function to test eligible players
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+        try {
+            game.SetEligiblePlayers(1);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "Player 2, Player 3 are eligible participants";
+            assertEquals(capturedOutput,expectedOutput1);
+        } finally {
+            System.setOut(originalOut);
+        }
+
+    }
 }
 
 
