@@ -512,7 +512,17 @@ public class Game {
 
     public void askForParticipation(Scanner s)
     {
-        
+        out.println("");
+        for(int i=0;i<eligiblePlayers.size();i++)
+        {
+            out.println("Would Player "+eligiblePlayers.get(i).playerNumber+" like to participate");
+            String input=s.nextLine();
+
+            if(input.equals("N"))
+            {
+                eligiblePlayers.remove(i);
+            }
+        }
 
     }
 
