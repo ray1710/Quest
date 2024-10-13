@@ -437,12 +437,28 @@ public class Game {
                 String input=s.nextLine();
                 if(input.equals("Quit"))
                 {
-                    for(int j=0;j<indexes.size();j++)
+                    if(stage.get(i).size()==0)
                     {
-                        sponsor.removeCard(indexes.get(j)-j);
+                        out.println("No Empty Stage");
+                        while (true)
+                        {
+                            input=s.nextLine();
+                            if(!input.equals("Quit"))
+                            {
+                                break;
+                            }
+                        }
                     }
-                    indexes.clear();
-                    break;
+                    else
+                    {
+                        for(int j=0;j<indexes.size();j++)
+                        {
+                            sponsor.removeCard(indexes.get(j)-j);
+                        }
+                        indexes.clear();
+                        break;
+                    }
+
                 }
                 int index= Integer.valueOf(input);
                 if(sponsor.deck.get(index-1).type.equals("Foe") && foeCard)
