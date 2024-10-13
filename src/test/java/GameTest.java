@@ -505,6 +505,7 @@ public class GameTest {
     /**
      * Checks for repeated weapons (RESP-12)
      */
+    @Test
     public void testRepeatedWeapon()
     {
         //make player 1 the sponsor
@@ -526,7 +527,7 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n5\n4\nQuit\n1\n4\nQuit\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n5\n4\nQuit\n1\n3\nQuit\n".getBytes());
         System.setIn(in);
 
         try {
@@ -534,7 +535,7 @@ public class GameTest {
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "No Repeated Weapon Cards";
-            String expectedOutput2 = "{{F5, D5}{F10, D10}}";
+            String expectedOutput2 = "{{F5, D5}{F10, D5}}";
             assertTrue(capturedOutput.contains(expectedOutput1));
             assertTrue(capturedOutput.contains(expectedOutput2));
 
