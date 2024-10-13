@@ -773,7 +773,35 @@ public class GameTest {
         assertEquals(game.playerFour.deck.size(),12);
     }
 
+    @Test
+    public void testDrawCardAfterEligibleTrim()
+    {
+        game.distributeCards();
 
+        //Set Sponsor
+        InputStream sysInBackup = in;
+        ByteArrayInputStream input = new ByteArrayInputStream("Y\n".getBytes());
+        System.setIn(input);
+        game.SetSponsor(new Scanner(input));
+        System.setIn(sysInBackup);
+
+        //Remove last card in each non sponsor
+        game.playerTwo.removeCard(11);
+        game.playerThree.removeCard(11);
+
+        //For player 4, we can test the trim
+
+        //
+        sysInBackup = in;
+        input = new ByteArrayInputStream("Y\nY\nY\n1\n".getBytes());
+        System.setIn(input);
+        game.askForParticipation(new Scanner(input));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.playerTwo.deck.size(),12);
+        assertEquals(game.playerThree.deck.size(),12);
+        assertEquals(game.playerFour.deck.size(),12);
+    }
 }
 
 
