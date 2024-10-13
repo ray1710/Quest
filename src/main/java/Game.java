@@ -1,7 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.System.in;
 import static java.lang.System.out;
@@ -443,6 +441,10 @@ public class Game {
                         out.println("No Empty Stage");
 
                     }
+                    else if(foeCard==false)
+                    {
+                        out.println("Must have Foe Card on Stage");
+                    }
                     else
                     {
                         if(calculateValue(i)<previousValue)
@@ -455,7 +457,9 @@ public class Game {
                         else
                         {
                             for (int j = 0; j < indexes.size(); j++) {
-                                sponsor.removeCard(indexes.get(j) - j);
+                                Collections.sort(indexes);
+                                Collections.reverse(indexes);
+                                sponsor.removeCard(indexes.get(j));
                             }
                             indexes.clear();
                             previousValue=calculateValue(i);
