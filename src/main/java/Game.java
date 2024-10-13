@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static java.lang.System.in;
@@ -407,10 +406,9 @@ public class Game {
                     if(i!=j)
                     {
                         eligiblePlayers.add(players[j]);
-
                     }
                 }
-
+                i=100;
             }
         }
     }
@@ -491,6 +489,30 @@ public class Game {
         }
     }
 
+    public void SetEligiblePlayers(int round)
+    {
+        int total=calculateValue(round-1);
+
+        int playerTotal=0;
+        for(int i=0;i<eligiblePlayers.size();i++)
+        {
+            for(int j=0;j<eligiblePlayers.get(i).deck.size();j++)
+            {
+                playerTotal+=eligiblePlayers.get(i).deck.get(j).value;
+            }
+            if(playerTotal<total)
+            {
+                eligiblePlayers.remove(i);
+            }
+            playerTotal=0;
+
+        }
+        displayEligiblePlayers();
+    }
+
+
+
+
     public boolean checkDuplicateWeapon(int i,String weapon)
     {
         for(int j=0;j<stage.get(i).size();j++)
@@ -514,6 +536,32 @@ public class Game {
 
         return total;
     }
+
+    public void displayEligiblePlayers()
+    {
+        if(eligiblePlayers.size()==0)
+        {
+            out.println("No players are eligible participants");
+        }
+        else
+        {
+            for(int i=0;i<eligiblePlayers.size();i++)
+            {
+                if(i==eligiblePlayers.size()-1)
+                {
+                    out.print("Player "+eligiblePlayers.get(i).playerNumber+" are eligible participants");
+                }
+                else
+                {
+                    out.print("Player "+eligiblePlayers.get(i).playerNumber+", ");
+                }
+
+            }
+
+        }
+
+    }
+
 
 
     public void displayStageDeck()
