@@ -544,6 +544,41 @@ public class GameTest {
         }
 
     }
+
+    @Test
+    public void testEmptyStage()
+    {
+        game.sponsor=game.playerOne;
+
+        //Make the event card a Q2 card
+        game.currentEventCard=new Card("Q2","Event",2);
+
+        //Give out cards
+        game.sponsor.addCard(new Card("F5","Foe",5));
+        game.sponsor.addCard(new Card("F10","Foe",10));
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("Quit\n1\nQuit\n1\nQuit\n".getBytes());
+        System.setIn(in);
+
+        try {
+            game.SetStages(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "No Empty Stage";
+            String expectedOutput2 = "{{F5}{F10}}";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+            assertTrue(capturedOutput.contains(expectedOutput2));
+
+        } finally {
+            System.setOut(originalOut);
+        }
+        
+    }
 }
 
 
