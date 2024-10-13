@@ -522,6 +522,12 @@ public class Game {
             {
                 eligiblePlayers.remove(i);
             }
+            else{
+                Random r = new Random();
+                int randomInt = r.nextInt(adventureDeck.size());
+                eligiblePlayers.get(i).addCard(adventureDeck.get(randomInt));
+                adventureDeck.remove(randomInt);
+            }
         }
 
     }
