@@ -696,6 +696,54 @@ public class GameTest {
         }
 
     }
+
+    @Test
+    public void askIfWantToParticipate()
+    {
+        //Set the event card
+        game.currentEventCard = new Card("Q2", "Event", 2);
+
+        //Give out cards
+        game.distributeCards();
+
+
+        //Set the sponsor
+        InputStream sysInBackup = in;
+        ByteArrayInputStream input = new ByteArrayInputStream("Y\n".getBytes());
+        System.setIn(input);
+
+
+        game.SetSponsor(new Scanner(input));
+        System.setIn(sysInBackup);
+
+        //Create rounds
+        game.stage.add(new ArrayList<>());
+        game.stage.get(0).add(new Card("F5", "Foe", 5));
+        game.stage.get(0).add(new Card("D5", "Weapon", 5));
+
+        game.stage.add(new ArrayList<>());
+        game.stage.get(1).add(new Card("F5", "Foe", 5));
+        game.stage.get(0).add(new Card("H5", "Weapon", 10));
+
+        //All Players should be eligible
+        game.SetEligiblePlayers(1);
+
+        //Ask players if they want to participate
+        sysInBackup = in;
+        input = new ByteArrayInputStream("Y\nY\nN\n".getBytes());
+        System.setIn(input);
+
+        game.askForParticipation(new Scanner(input));
+        System.setIn(sysInBackup);
+
+        assertEquals(game.eligiblePlayers.size(),2);
+
+        //Should not change
+        game.SetEligiblePlayers(2);
+
+        assertEquals(game.eligiblePlayers.size(),2);
+    }
+
 }
 
 

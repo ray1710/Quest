@@ -510,6 +510,13 @@ public class Game {
         displayEligiblePlayers();
     }
 
+    public void askForParticipation(Scanner s)
+    {
+        
+
+    }
+
+
 
 
 
