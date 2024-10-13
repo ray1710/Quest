@@ -527,7 +527,7 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n5\n4\nQuit\n1\n3\nQuit\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("5\n4\n1\nQuit\n1\n3\nQuit\n".getBytes());
         System.setIn(in);
 
         try {
@@ -535,7 +535,7 @@ public class GameTest {
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "No Repeated Weapon Cards";
-            String expectedOutput2 = "{{F5, D5}{F10, D5}}";
+            String expectedOutput2 = "{{D5, F5}{F10, D5}}";
             assertTrue(capturedOutput.contains(expectedOutput1));
             assertTrue(capturedOutput.contains(expectedOutput2));
 
@@ -638,7 +638,7 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("2\nQuit\n1\nQuit\n1\n2\nQuit\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("2\nQuit\n1\nQuit\n1\n2\nQuit\n1\n2\nQuit\n".getBytes());
         System.setIn(in);
 
         try {
@@ -646,7 +646,7 @@ public class GameTest {
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Must have Foe Card on Stage";
-            String expectedOutput2 = "{{F5, D5}{F5, D10}}";
+            String expectedOutput2 = "{{D5, F5}{F5, D10}}";
             assertTrue(capturedOutput.contains(expectedOutput1));
             assertTrue(capturedOutput.contains(expectedOutput2));
         } finally {
