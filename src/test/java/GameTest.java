@@ -864,19 +864,13 @@ public class GameTest {
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Enter Card Position for Attack, Enter Quit when done";
-            String expectedOutput2=" Deck:";
+            String expectedOutput2="Deck:";
             assertTrue(capturedOutput.contains(expectedOutput1));
             assertTrue(capturedOutput.contains(expectedOutput2));
         } finally {
             System.setOut(originalOut);
         }
-
-
     }
-
-
-
-
 }
 
 

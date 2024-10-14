@@ -42,6 +42,9 @@ public class Player {
 
     public void buildAttackDeck(Scanner s)
     {
+        System.out.println("Enter Card Position for Attack, Enter Quit when done");
+        System.out.println("Deck:");
+        displayDeck();
 
     }
 
@@ -52,6 +55,7 @@ public class Player {
      */
     public void displayDeck()
     {
+        System.out.println("");
         System.out.print("{");
         for(int i=0;i<deck.size();i++)
         {
