@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player {
     int playerNumber;
     ArrayList<Card> deck;
+    ArrayList <Card> attackDeck;
     int shields;
 
     /**
@@ -12,6 +14,7 @@ public class Player {
     public Player(int num)
     {
         deck=new ArrayList<>();
+        attackDeck=new ArrayList<>();
         shields=0;
         playerNumber=num;
     }
@@ -25,7 +28,7 @@ public class Player {
         deck.add(card);
     }
 
-    boolean removeCard(int i)
+    public boolean removeCard(int i)
     {
         if((i<0)||(i>deck.size()))
         {
@@ -36,6 +39,12 @@ public class Player {
         return true;
 
     }
+
+    public void buildAttackDeck(Scanner s)
+    {
+
+    }
+
 
 
     /**

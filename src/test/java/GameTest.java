@@ -804,20 +804,19 @@ public class GameTest {
     }
 
     @Test
-    public void testNoParticipants()
-    {
+    public void testNoParticipants() {
         game.distributeCards();
 
-        game.currentEventCard=new Card("Q2","Event",2);
+        game.currentEventCard = new Card("Q2", "Event", 2);
 
         //Assign Sponsor, and then eligiblePlayers
 
-        game.sponsor=game.playerOne;
+        game.sponsor = game.playerOne;
 
         game.stage.add(new ArrayList<>());
 
-        game.stage.get(0).add(new Card("TEST","TEST",0));
-        game.stage.get(0).add(new Card("TEST","TEST",0));
+        game.stage.get(0).add(new Card("TEST", "TEST", 0));
+        game.stage.get(0).add(new Card("TEST", "TEST", 0));
 
 
         game.eligiblePlayers.add(game.playerTwo);
@@ -839,16 +838,42 @@ public class GameTest {
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Quest Resolved, No Players";
             assertTrue(capturedOutput.contains(expectedOutput1));
-       } finally {
+        } finally {
             System.setOut(originalOut);
         }
 
-        //Set Sponsor
-
-
-        //
 
     }
+
+    @Test
+    public void testDisplayAttackInfo()
+    {
+        game.distributeCards();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\nQuit\n".getBytes());
+        System.setIn(in);
+
+        try {
+            game.playerOne.buildAttackDeck(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "Enter Card Position for Attack, Enter Quit when done";
+            String expectedOutput2=" Deck:";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+            assertTrue(capturedOutput.contains(expectedOutput2));
+        } finally {
+            System.setOut(originalOut);
+        }
+
+
+    }
+
 
 
 
