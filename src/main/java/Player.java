@@ -105,6 +105,24 @@ public class Player {
 
     }
 
+    public int getAttackTotal()
+    {
+        int total=0;
+        if(attackDeck.size()==0)
+        {
+            return total;
+        }
+        else
+        {
+            for(int i=0;i<attackDeck.size();i++)
+            {
+                total+=attackDeck.get(i).value;
+            }
+            return total;
+        }
+    }
+
+
 
 
 

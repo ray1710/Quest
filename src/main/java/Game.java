@@ -512,6 +512,32 @@ public class Game {
                 sponsor=null;
                 break;
             }
+            else
+            {
+                ArrayList<Integer> indexes= new ArrayList<>();
+                for(int j=0;j<eligiblePlayers.size();j++)
+                {
+                    int total=eligiblePlayers.get(j).getAttackTotal();
+                    if(total<calculateValue(i))
+                    {
+                        indexes.add(j);
+                        out.println("Player "+eligiblePlayers.get(j).playerNumber+" has not beaten the stage");
+                    }
+                    else
+                    {
+                        out.println("Player "+eligiblePlayers.get(j).playerNumber+" has beaten the stage");
+                    }
+                    eligiblePlayers.get(j).attackDeck.clear();
+
+                }
+                Collections.sort(indexes);
+                Collections.reverse(indexes);
+                for(int k=0;k<indexes.size();k++)
+                {
+                    eligiblePlayers.remove((int) indexes.get(k));
+                }
+
+            }
         }
 
     }
@@ -628,7 +654,7 @@ public class Game {
             {
                 if(i==eligiblePlayers.size()-1)
                 {
-                    out.print("Player "+eligiblePlayers.get(i).playerNumber+" are eligible participants");
+                    out.println("Player "+eligiblePlayers.get(i).playerNumber+" are eligible participants");
                 }
                 else
                 {
