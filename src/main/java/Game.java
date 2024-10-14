@@ -383,6 +383,7 @@ public class Game {
     {
         SetSponsor(s);
         SetStages(s);
+        ResolveQuest(s);
 
     }
 
@@ -407,6 +408,7 @@ public class Game {
                     if(i!=j)
                     {
                         eligiblePlayers.add(players[j]);
+
                     }
                 }
                 i=100;
@@ -492,13 +494,22 @@ public class Game {
 
     public void ResolveQuest(Scanner s)
     {
-        for(int i=0;i<currentEventCard.value;i++)
+        int i=0;
+        for(i=0;i<currentEventCard.value;i++)
         {
-            SetEligiblePlayers(1);
+            SetEligiblePlayers(i);
             askForParticipation(s);
             if(eligiblePlayers.size()==0)
             {
                 out.println("Quest Resolved, No Players");
+                int total=numOfCardsGained();
+                out.println("Sponsor Gained "+total+" extra cards");
+                addAdventureCard(total,sponsor);
+                if(sponsor.deck.size()>12)
+                {
+                    trimCards(sponsor,s);
+                }
+                sponsor=null;
                 break;
             }
         }
@@ -507,7 +518,7 @@ public class Game {
 
     public void SetEligiblePlayers(int round)
     {
-        int total=calculateValue(round-1);
+        int total=calculateValue(round);
 
 
         int playerTotal=0;
@@ -529,17 +540,18 @@ public class Game {
 
     public void askForParticipation(Scanner s)
     {
+        ArrayList<Integer> indexes=new ArrayList<>();
         out.println("");
         for(int i=0;i<eligiblePlayers.size();i++)
         {
+            out.println(eligiblePlayers.get(i).playerNumber);
             out.println("Would Player "+eligiblePlayers.get(i).playerNumber+" like to participate");
-            String input=null;
-            input=s.nextLine();
+            String input=s.nextLine();
             out.println(input);
 
             if(input.equals("N"))
             {
-                eligiblePlayers.remove(i);
+                indexes.add(i);
             }
             else if(input.equals("Y")){
                 Random r = new Random();
@@ -552,6 +564,13 @@ public class Game {
                 }
             }
         }
+        Collections.sort(indexes);
+        Collections.reverse(indexes);
+        for(int i=0;i<indexes.size();i++)
+        {
+            eligiblePlayers.remove((int) indexes.get(i));
+        }
+        displayEligiblePlayers();
 
     }
 
@@ -570,6 +589,20 @@ public class Game {
         }
         return false;
 
+    }
+
+    public int numOfCardsGained()
+    {
+        int total=currentEventCard.value;
+        for(int i=0;i<stage.size();i++)
+        {
+            for(int j=0;j<stage.get(i).size();j++)
+            {
+                total++;
+
+            }
+        }
+        return total;
     }
 
     public int calculateValue(int index)
