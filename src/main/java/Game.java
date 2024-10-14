@@ -501,15 +501,7 @@ public class Game {
             askForParticipation(s);
             if(eligiblePlayers.size()==0)
             {
-                out.println("Quest Resolved, No Players");
-                int total=numOfCardsGained();
-                out.println("Sponsor Gained "+total+" extra cards");
-                addAdventureCard(total,sponsor);
-                if(sponsor.deck.size()>12)
-                {
-                    trimCards(sponsor,s);
-                }
-                sponsor=null;
+
                 break;
             }
             else
@@ -517,6 +509,7 @@ public class Game {
                 ArrayList<Integer> indexes= new ArrayList<>();
                 for(int j=0;j<eligiblePlayers.size();j++)
                 {
+                    eligiblePlayers.get(j).buildAttackDeck(s);
                     int total=eligiblePlayers.get(j).getAttackTotal();
                     if(total<calculateValue(i))
                     {
@@ -536,9 +529,26 @@ public class Game {
                 {
                     eligiblePlayers.remove((int) indexes.get(k));
                 }
+                if(i==currentEventCard.value-1 && eligiblePlayers.size()>1)
+                {
+                    for(int y=0;y<eligiblePlayers.size();y++)
+                    {
+                        out.println("Player "+eligiblePlayers.get(y).playerNumber+" has finished the quest, gained "+currentEventCard.value +" shields");
+                        eligiblePlayers.get(y).shields+=currentEventCard.value;
+                    }
+                }
 
             }
         }
+        out.println("Quest Resolved, No Players");
+        int total=numOfCardsGained();
+        out.println("Sponsor Gained "+total+" extra cards");
+        addAdventureCard(total,sponsor);
+        if(sponsor.deck.size()>12)
+        {
+            trimCards(sponsor,s);
+        }
+        sponsor=null;
 
     }
 

@@ -1057,7 +1057,7 @@ public class GameTest {
         game.eligiblePlayers.add(game.playerFour);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\nQuit\n1\nQuit\n1\nQuit\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\nQuit\n1\nQuit\n1\nQuit\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
         game.ResolveQuest(new Scanner(in));

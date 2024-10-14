@@ -84,7 +84,6 @@ public class Player {
                 {
                     attackDeck.add(deck.get(index - 1));
                     indexes.add(index - 1);
-                    System.out.print(indexes);
                     displayAttackDeck();
                 }
 
@@ -108,18 +107,12 @@ public class Player {
     public int getAttackTotal()
     {
         int total=0;
-        if(attackDeck.size()==0)
-        {
-            return total;
-        }
-        else
-        {
-            for(int i=0;i<attackDeck.size();i++)
-            {
-                total+=attackDeck.get(i).value;
+        if (attackDeck.size() != 0) {
+            for (int i = 0; i < attackDeck.size(); i++) {
+                total += attackDeck.get(i).value;
             }
-            return total;
         }
+        return total;
     }
 
 
