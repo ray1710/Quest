@@ -351,6 +351,11 @@ public class Game {
             trimCards(playerFour,s);
 
         }
+        else
+        {
+            StartQuest(new Scanner(in));
+
+        }
 
 
     }
@@ -398,6 +403,7 @@ public class Game {
         for(int i=0;i<players.length;i++)
         {
             out.println("Does Player "+players[i].playerNumber+" want to be a sponsor (Y/N)");
+            players[i].displayDeck();
             String input=s.nextLine();
 
             if(input.equals("Y"))
@@ -501,7 +507,7 @@ public class Game {
             askForParticipation(s);
             if(eligiblePlayers.size()==0)
             {
-
+                out.println("Quest Resolved, No Players");
                 break;
             }
             else
@@ -540,7 +546,6 @@ public class Game {
 
             }
         }
-        out.println("Quest Resolved, No Players");
         int total=numOfCardsGained();
         out.println("Sponsor Gained "+total+" extra cards");
         addAdventureCard(total,sponsor);

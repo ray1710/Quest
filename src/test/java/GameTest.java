@@ -1015,7 +1015,7 @@ public class GameTest {
 
         //Player four should fail since 0<10
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\n1\n1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\nQuit\nQuit\nQuit\n1\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
         game.ResolveQuest(new Scanner(in));
