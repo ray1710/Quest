@@ -687,7 +687,7 @@ public class GameTest {
         System.setOut(new PrintStream(outputStream));
         System.setIn(in);
         try {
-            game.SetEligiblePlayers(1);
+            game.SetEligiblePlayers(0);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Player 2, Player 3 are eligible participants";
             assertEquals(capturedOutput,expectedOutput1);
@@ -739,7 +739,7 @@ public class GameTest {
         assertEquals(game.eligiblePlayers.size(),2);
 
         //Should not change
-        game.SetEligiblePlayers(2);
+        game.SetEligiblePlayers(1);
 
         assertEquals(game.eligiblePlayers.size(),2);
     }
@@ -829,7 +829,7 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\n1\n1\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
         try {
@@ -941,14 +941,16 @@ public class GameTest {
         game.sponsor = game.playerOne;
 
         game.stage.add(new ArrayList<>());
-        game.stage.add(new ArrayList<>());
 
 
         //Should get 6 extra cards
-        game.stage.get(0).add(new Card("TEST", "TEST", 0));
-        game.stage.get(0).add(new Card("TEST", "TEST", 0));
-        game.stage.get(1).add(new Card("TEST", "TEST", 0));
-        game.stage.get(1).add(new Card("TEST", "TEST", 0));
+        game.stage.get(0).add(new Card("TEST", "TEST", 5));
+        game.stage.get(0).add(new Card("TEST", "TEST", 5));
+
+        game.stage.add(new ArrayList<>());
+
+        game.stage.get(1).add(new Card("TEST", "TEST", 5));
+        game.stage.get(1).add(new Card("TEST", "TEST", 5));
 
 
         game.eligiblePlayers.add(game.playerTwo);
