@@ -898,6 +898,40 @@ public class GameTest {
             System.setOut(originalOut);
         }
     }
+
+    @Test
+    public void testRepeatedWeaponAttack()
+    {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n3\nQuit\n".getBytes());
+        System.setIn(in);
+
+        game.playerOne.deck.add(new Card("H10","Weapon",10));
+        game.playerOne.deck.add(new Card("H10","Weapon",10));
+        game.playerOne.deck.add(new Card("F10","Foe",10));
+
+        try {
+            game.playerOne.buildAttackDeck(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "{H10, F10}";
+            String expectedOutput2 = "No Duplicate Weapons";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+            assertTrue(capturedOutput.contains(expectedOutput2));
+        } finally {
+            System.setOut(originalOut);
+        }
+
+
+
+
+
+    }
 }
 
 
