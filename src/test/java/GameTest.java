@@ -980,6 +980,59 @@ public class GameTest {
 
     }
 
+    @Test
+    public void testResolveAttack()
+    {
+        //For simplicity sake, we will have one round only
+        game.currentEventCard = new Card("Q2", "Event", 1);
+
+        //Distribute Cards so that each player is eligible no matter what
+
+        game.distributeCards();
+
+        //Assign Sponsor, and then eligiblePlayers
+
+        game.sponsor = game.playerOne;
+
+        game.stage.add(new ArrayList<>());
+
+
+        game.stage.get(0).add(new Card("F5", "Foe", 5));
+        game.stage.get(0).add(new Card("D5", "Weapon", 5));
+
+
+        //Set EligiblePlayers
+        game.eligiblePlayers.add(game.playerTwo);
+        game.eligiblePlayers.add(game.playerThree);
+        game.eligiblePlayers.add(game.playerFour);
+
+        //Player two should pass since 15>10
+        game.playerTwo.attackDeck.add(new Card("F10","Foe",10));
+        game.playerTwo.attackDeck.add(new Card("D5","Weapon",5));
+
+        //Player three should pass since 10=10
+        game.playerThree.attackDeck.add(new Card("F10","Foe",10));
+
+        //Player four should fail since 0<10
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\n1\n1\n".getBytes());
+        System.setIn(in);
+
+        game.ResolveQuest(new Scanner(in));
+
+        //Player four should not be eligible
+        assertEquals(game.eligiblePlayers.get(0),game.playerTwo);
+        assertEquals(game.eligiblePlayers.get(1),game.playerThree);
+
+        //All attack decks should be empty
+        assertEquals(game.playerTwo.attackDeck.size(),0);
+        assertEquals(game.playerThree.attackDeck.size(),0);
+        assertEquals(game.playerFour.attackDeck.size(),0);
+
+
+    }
+
+
 }
 
 
