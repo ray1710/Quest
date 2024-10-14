@@ -66,12 +66,43 @@ public class Player {
             else
             {
                 int index = Integer.parseInt(input);
-                attackDeck.add(deck.get(index - 1));
-                indexes.add(index - 1);
-                System.out.print(indexes);
-                displayAttackDeck();
+                if(deck.get(index-1).type.equals("Weapon"))
+                {
+                    if (checkDuplicateWeapon(deck.get(index-1).name))
+                    {
+                        System.out.println("No Duplicate Weapons");
+                    }
+                    else
+                    {
+                        attackDeck.add(deck.get(index - 1));
+                        indexes.add(index - 1);
+                        displayAttackDeck();
+                    }
+
+                }
+                else
+                {
+                    attackDeck.add(deck.get(index - 1));
+                    indexes.add(index - 1);
+                    System.out.print(indexes);
+                    displayAttackDeck();
+                }
+
             }
         }
+    }
+
+    public boolean checkDuplicateWeapon(String weapon)
+    {
+        for(int i=0;i<attackDeck.size();i++)
+        {
+            if(attackDeck.get(i).name.equals(weapon))
+            {
+                return true;
+            }
+        }
+        return false;
+
     }
 
 
