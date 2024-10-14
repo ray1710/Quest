@@ -803,6 +803,54 @@ public class GameTest {
         assertEquals(game.playerFour.deck.size(),12);
     }
 
+    @Test
+    public void testNoParticipants()
+    {
+        game.distributeCards();
+
+        game.currentEventCard=new Card("Q2","Event",2);
+
+        //Assign Sponsor, and then eligiblePlayers
+
+        game.sponsor=game.playerOne;
+
+        game.stage.add(new ArrayList<>());
+
+        game.stage.get(0).add(new Card("TEST","TEST",0));
+        game.stage.get(0).add(new Card("TEST","TEST",0));
+
+
+        game.eligiblePlayers.add(game.playerTwo);
+        game.eligiblePlayers.add(game.playerThree);
+        game.eligiblePlayers.add(game.playerFour);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\n".getBytes());
+        System.setIn(in);
+
+        try {
+            game.ResolveQuest(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "Quest Resolved, No Players";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+       } finally {
+            System.setOut(originalOut);
+        }
+
+        //Set Sponsor
+
+
+        //
+
+    }
+
+
 
 }
 

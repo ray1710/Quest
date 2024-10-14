@@ -490,14 +490,16 @@ public class Game {
         }
     }
 
-    public void ResolveQuest()
+    public void ResolveQuest(Scanner s)
     {
+       
 
     }
 
     public void SetEligiblePlayers(int round)
     {
         int total=calculateValue(round-1);
+
 
         int playerTotal=0;
         for(int i=0;i<eligiblePlayers.size();i++)
