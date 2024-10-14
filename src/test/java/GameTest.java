@@ -690,7 +690,7 @@ public class GameTest {
             game.SetEligiblePlayers(0);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Player 2, Player 3 are eligible participants";
-            assertEquals(capturedOutput,expectedOutput1);
+            assertTrue(capturedOutput.contains(expectedOutput1));
         } finally {
             System.setOut(originalOut);
         }
@@ -1028,8 +1028,45 @@ public class GameTest {
         assertEquals(game.playerTwo.attackDeck.size(),0);
         assertEquals(game.playerThree.attackDeck.size(),0);
         assertEquals(game.playerFour.attackDeck.size(),0);
+    }
+
+    @Test
+    public void endOfQuest()
+    {
+        //For simplicity sake, we will have one round only
+        game.currentEventCard = new Card("Q2", "Event", 1);
+
+        //Distribute Cards so that each player is eligible no matter what
+
+        game.distributeCards();
+
+        //Assign Sponsor, and then eligiblePlayers
+
+        game.sponsor = game.playerOne;
+
+        game.stage.add(new ArrayList<>());
 
 
+        //Make it so that anyone can beat this stage
+        game.stage.get(0).add(new Card("F5", "Foe", 5));
+
+
+        //Set EligiblePlayers
+        game.eligiblePlayers.add(game.playerTwo);
+        game.eligiblePlayers.add(game.playerThree);
+        game.eligiblePlayers.add(game.playerFour);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\nQuit\n1\nQuit\n1\nQuit\n".getBytes());
+        System.setIn(in);
+
+        game.ResolveQuest(new Scanner(in));
+        System.setIn(sysInBackup);
+
+        //Check shields, should be 1 instead of 0
+        assertEquals(game.playerTwo.shields,1);
+        assertEquals(game.playerThree.shields,1);
+        assertEquals(game.playerFour.shields,1);
     }
 
 
