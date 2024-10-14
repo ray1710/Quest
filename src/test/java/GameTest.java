@@ -893,6 +893,7 @@ public class GameTest {
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "{TEST}";
             assertTrue(capturedOutput.contains(expectedOutput1));
+            assertEquals(game.playerOne.deck.size(),0);
         } finally {
             System.setOut(originalOut);
         }

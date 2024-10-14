@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Player {
@@ -42,11 +43,37 @@ public class Player {
 
     public void buildAttackDeck(Scanner s)
     {
+        ArrayList<Integer> indexes = new ArrayList<>();
         System.out.println("Enter Card Position for Attack, Enter Quit when done");
         System.out.println("Deck:");
         displayDeck();
 
+        while(true)
+        {
+            String input = s.nextLine();
+            if(input.equals("Quit"))
+            {
+                Collections.sort(indexes);
+                Collections.reverse(indexes);
+                for(int i = 0; i < indexes.size(); i++)
+                {
+                    deck.remove((int) indexes.get(i));
+                }
+                displayDeck();
+                displayAttackDeck();
+                break;
+            }
+            else
+            {
+                int index = Integer.parseInt(input);
+                attackDeck.add(deck.get(index - 1));
+                indexes.add(index - 1);
+                System.out.print(indexes);
+                displayAttackDeck();
+            }
+        }
     }
+
 
 
 
@@ -55,7 +82,6 @@ public class Player {
      */
     public void displayDeck()
     {
-        System.out.println("");
         System.out.print("{");
         for(int i=0;i<deck.size();i++)
         {
@@ -70,6 +96,34 @@ public class Player {
         }
         System.out.print("}");
         System.out.println("");
+
+
+    }
+
+    public void displayAttackDeck()
+    {
+        if(attackDeck.size()==0)
+        {
+            System.out.println("{}");
+        }
+        else
+        {
+            System.out.print("{");
+            for(int i=0;i<attackDeck.size();i++)
+            {
+                if(i==attackDeck.size()-1)
+                {
+                    System.out.print(attackDeck.get(i).name);
+                }
+                else
+                {
+                    System.out.print(attackDeck.get(i).name+", ");
+                }
+            }
+            System.out.print("}");
+            System.out.println("");
+
+        }
 
 
     }
