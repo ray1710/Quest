@@ -492,7 +492,16 @@ public class Game {
 
     public void ResolveQuest(Scanner s)
     {
-       
+        for(int i=0;i<currentEventCard.value;i++)
+        {
+            SetEligiblePlayers(1);
+            askForParticipation(s);
+            if(eligiblePlayers.size()==0)
+            {
+                out.println("Quest Resolved, No Players");
+                break;
+            }
+        }
 
     }
 
