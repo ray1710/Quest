@@ -367,7 +367,8 @@ public class Game {
         {
             System.out.println("Please enter a number to get rid of a card");
             player.displayDeck();
-            int input = s.nextInt();
+            String a = s.nextLine();
+            int input =Integer.parseInt(a);
             System.out.println("Input: "+input);
             boolean result=player.removeCard(input-1);
             if(result)
@@ -489,6 +490,11 @@ public class Game {
         }
     }
 
+    public void ResolveQuest()
+    {
+
+    }
+
     public void SetEligiblePlayers(int round)
     {
         int total=calculateValue(round-1);
@@ -516,13 +522,15 @@ public class Game {
         for(int i=0;i<eligiblePlayers.size();i++)
         {
             out.println("Would Player "+eligiblePlayers.get(i).playerNumber+" like to participate");
-            String input=s.nextLine();
+            String input=null;
+            input=s.nextLine();
+            out.println(input);
 
             if(input.equals("N"))
             {
                 eligiblePlayers.remove(i);
             }
-            else{
+            else if(input.equals("Y")){
                 Random r = new Random();
                 int randomInt = r.nextInt(adventureDeck.size());
                 eligiblePlayers.get(i).addCard(adventureDeck.get(randomInt));

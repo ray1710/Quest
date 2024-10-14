@@ -730,10 +730,10 @@ public class GameTest {
 
         //Ask players if they want to participate
         sysInBackup = in;
-        input = new ByteArrayInputStream("Y\nY\nN\n".getBytes());
-        System.setIn(input);
+        ByteArrayInputStream inputtwo = new ByteArrayInputStream("Y\n1\nN\nY\n1\n".getBytes());
+        System.setIn(inputtwo);
 
-        game.askForParticipation(new Scanner(input));
+        game.askForParticipation(new Scanner(inputtwo));
         System.setIn(sysInBackup);
 
         assertEquals(game.eligiblePlayers.size(),2);
@@ -802,6 +802,8 @@ public class GameTest {
         assertEquals(game.playerThree.deck.size(),12);
         assertEquals(game.playerFour.deck.size(),12);
     }
+
+
 }
 
 
