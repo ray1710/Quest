@@ -871,6 +871,32 @@ public class GameTest {
             System.setOut(originalOut);
         }
     }
+
+    @Test
+    public void testSelectAttackCard()
+    {
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+        System.setIn(in);
+
+        InputStream sysInBackup = in;
+        ByteArrayInputStream in = new ByteArrayInputStream("1\nQuit\n".getBytes());
+        System.setIn(in);
+
+        game.playerOne.deck.add(new Card("TEST","TEST",0));
+
+        try {
+            game.playerOne.buildAttackDeck(new Scanner(in));
+            System.setIn(sysInBackup);
+            String capturedOutput = outputStream.toString();
+            String expectedOutput1 = "{TEST}";
+            assertTrue(capturedOutput.contains(expectedOutput1));
+        } finally {
+            System.setOut(originalOut);
+        }
+    }
 }
 
 
