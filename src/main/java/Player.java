@@ -44,7 +44,7 @@ public class Player {
     public void buildAttackDeck(Scanner s)
     {
         ArrayList<Integer> indexes = new ArrayList<>();
-        System.out.println("Enter Card Position for Attack, Enter Quit when done");
+        System.out.println("Player "+playerNumber+": Enter Card Position for Attack, Enter Quit when done");
         System.out.println("Deck:");
         displayDeck();
 

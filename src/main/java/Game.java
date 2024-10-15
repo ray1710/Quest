@@ -208,18 +208,22 @@ public class Game {
         while(true)
         {
             nextPlayer(1,s);
+            flush();
             startPlayerTurn();
             if(checkWinner()){break;}
             nextPlayer(2,s);
+            flush();
             startPlayerTurn();
             if(checkWinner()){break;}
             nextPlayer(3,s);
+            flush();
             startPlayerTurn();
             if(checkWinner()){break;}
             nextPlayer(4,s);
+            flush();
             startPlayerTurn();
             if(checkWinner()){break;}
-            break;
+
         }
     }
 
@@ -262,6 +266,12 @@ public class Game {
 
     }
 
+    /**
+     * Assigns the hotseat to nextPlayer
+     * @param playerNum: the player whoes turn it is
+     * @param s: Scanner obj
+     */
+
     public void nextPlayer(int playerNum, Scanner s)
     {
         out.println("Press return key to end turn");
@@ -295,13 +305,17 @@ public class Game {
     {
         System.out.println("Player "+currentPlayer.playerNumber+" turn");
         currentPlayer.displayDeck();
-        SetEventNewCard();
+        SetEventNewCard(new Scanner(in));
         playEventCard();
     }
 
-    public void  SetEventNewCard()
+    /**
+     * Sets new eventCard, gets from deck
+     * @param s: Scanner obj
+     */
+    public void  SetEventNewCard(Scanner s)
     {
-        Scanner s =new Scanner(in);
+
         System.out.println("Press return to get a event card");
         s.nextLine();
         System.out.println("Getting Event Card");
@@ -384,11 +398,28 @@ public class Game {
         }
         return n;
     }
+
+    /**
+     * Starts a quest
+     * @param s Scanner Obj
+     */
     public void StartQuest(Scanner s)
     {
         SetSponsor(s);
-        SetStages(s);
-        ResolveQuest(s);
+        if(eligiblePlayers.size()==0)
+        {
+            out.println("No sponsors");
+
+        }
+        else
+        {
+            SetStages(s);
+            flush();
+            for(int i=0;i<currentEventCard.value;i++)
+            {
+                startRound(i,s);
+            }
+        }
 
     }
 
@@ -500,52 +531,6 @@ public class Game {
 
     public void ResolveQuest(Scanner s)
     {
-        int i=0;
-        for(i=0;i<currentEventCard.value;i++)
-        {
-            SetEligiblePlayers(i);
-            askForParticipation(s);
-            if(eligiblePlayers.size()==0)
-            {
-                out.println("Quest Resolved, No Players");
-                break;
-            }
-            else
-            {
-                ArrayList<Integer> indexes= new ArrayList<>();
-                for(int j=0;j<eligiblePlayers.size();j++)
-                {
-                    eligiblePlayers.get(j).buildAttackDeck(s);
-                    int total=eligiblePlayers.get(j).getAttackTotal();
-                    if(total<calculateValue(i))
-                    {
-                        indexes.add(j);
-                        out.println("Player "+eligiblePlayers.get(j).playerNumber+" has not beaten the stage");
-                    }
-                    else
-                    {
-                        out.println("Player "+eligiblePlayers.get(j).playerNumber+" has beaten the stage");
-                    }
-                    eligiblePlayers.get(j).attackDeck.clear();
-
-                }
-                Collections.sort(indexes);
-                Collections.reverse(indexes);
-                for(int k=0;k<indexes.size();k++)
-                {
-                    eligiblePlayers.remove((int) indexes.get(k));
-                }
-                if(i==currentEventCard.value-1 && eligiblePlayers.size()>1)
-                {
-                    for(int y=0;y<eligiblePlayers.size();y++)
-                    {
-                        out.println("Player "+eligiblePlayers.get(y).playerNumber+" has finished the quest, gained "+currentEventCard.value +" shields");
-                        eligiblePlayers.get(y).shields+=currentEventCard.value;
-                    }
-                }
-
-            }
-        }
         int total=numOfCardsGained();
         out.println("Sponsor Gained "+total+" extra cards");
         addAdventureCard(total,sponsor);
@@ -556,6 +541,53 @@ public class Game {
         sponsor=null;
 
     }
+
+    public void startRound(int round, Scanner s)
+    {
+        if(eligiblePlayers.size()==0)
+        {
+            out.println("Quest Resolved, No Players");
+            ResolveQuest(s);
+        }
+        else
+        {
+            ArrayList<Integer> indexes= new ArrayList<>();
+            for(int j=0;j<eligiblePlayers.size();j++)
+            {
+                eligiblePlayers.get(j).buildAttackDeck(s);
+                int total=eligiblePlayers.get(j).getAttackTotal();
+                if(total<calculateValue(round))
+                {
+                    indexes.add(j);
+                    out.println("Player "+eligiblePlayers.get(j).playerNumber+" has not beaten the stage");
+                }
+                else
+                {
+                    out.println("Player "+eligiblePlayers.get(j).playerNumber+" has beaten the stage");
+                }
+                eligiblePlayers.get(j).attackDeck.clear();
+
+            }
+            Collections.sort(indexes);
+            Collections.reverse(indexes);
+            for(int k=0;k<indexes.size();k++)
+            {
+                eligiblePlayers.remove((int) indexes.get(k));
+            }
+            if(round==currentEventCard.value-1 && eligiblePlayers.size()>=1)
+            {
+                for(int y=0;y<eligiblePlayers.size();y++)
+                {
+                    out.println("Player "+eligiblePlayers.get(y).playerNumber+" has finished the quest, gained "+currentEventCard.value +" shields");
+                    eligiblePlayers.get(y).shields+=currentEventCard.value;
+                }
+
+                ResolveQuest(s);
+            }
+
+        }
+    }
+
 
     public void SetEligiblePlayers(int round)
     {
@@ -708,7 +740,21 @@ public class Game {
         System.out.println("");
     }
 
+    public void flush()
+    {
+        out.println("\n");
+        out.println("\n");
+        out.println("\n");
+        out.println("\n");out.println("\n");
 
+        out.println("\n");out.println("\n");
+
+        out.println("\n");out.println("\n");
+
+        out.println("\n");out.println("\n");
+
+
+    }
 
 
 

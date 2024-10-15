@@ -199,9 +199,9 @@ public class GameTest {
         game.distributeCards();
         game.currentPlayer=game.playerOne;
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n2\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream(" ".getBytes());
         System.setIn(in);
-        game.SetEventNewCard();
+        game.SetEventNewCard(new Scanner(in));
 
 
 
@@ -807,7 +807,7 @@ public class GameTest {
     public void testNoParticipants() {
         game.distributeCards();
 
-        game.currentEventCard = new Card("Q2", "Event", 2);
+        game.currentEventCard = new Card("Q2", "Event", 1);
 
         //Assign Sponsor, and then eligiblePlayers
 
@@ -819,9 +819,6 @@ public class GameTest {
         game.stage.get(0).add(new Card("TEST", "TEST", 0));
 
 
-        game.eligiblePlayers.add(game.playerTwo);
-        game.eligiblePlayers.add(game.playerThree);
-        game.eligiblePlayers.add(game.playerFour);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
@@ -829,11 +826,11 @@ public class GameTest {
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\n1\n1\n1\n1\n1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n1\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
         try {
-            game.ResolveQuest(new Scanner(in));
+            game.startRound(0,new Scanner(in));
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Quest Resolved, No Players";
@@ -953,21 +950,17 @@ public class GameTest {
         game.stage.get(1).add(new Card("TEST", "TEST", 5));
 
 
-        game.eligiblePlayers.add(game.playerTwo);
-        game.eligiblePlayers.add(game.playerThree);
-        game.eligiblePlayers.add(game.playerFour);
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
         System.setIn(in);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("N\nN\nN\n1\n1\n1\n1\n1\n1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\n1\n1\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
         try {
-            game.ResolveQuest(new Scanner(in));
+            game.startRound(0,new Scanner(in));
             System.setIn(sysInBackup);
             String capturedOutput = outputStream.toString();
             String expectedOutput1 = "Gained 6 extra cards";
@@ -1015,10 +1008,10 @@ public class GameTest {
 
         //Player four should fail since 0<10
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\nQuit\nQuit\nQuit\n1\n1\n1\n1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("Quit\nQuit\nQuit\n1\n1\n1\n1".getBytes());
         System.setIn(in);
 
-        game.ResolveQuest(new Scanner(in));
+        game.startRound(0,new Scanner(in));
 
         //Player four should not be eligible
         assertEquals(game.eligiblePlayers.get(0),game.playerTwo);
@@ -1057,10 +1050,11 @@ public class GameTest {
         game.eligiblePlayers.add(game.playerFour);
 
         InputStream sysInBackup = in;
-        ByteArrayInputStream in = new ByteArrayInputStream("Y\n1\nY\n1\nY\n1\n1\nQuit\n1\nQuit\n1\nQuit\n1\n1\n1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("1\nQuit\n1\nQuit\n1\nQuit\n1\n1\n1\n1\n1\nQuit\n1\n1\n1\n".getBytes());
         System.setIn(in);
 
-        game.ResolveQuest(new Scanner(in));
+
+        game.startRound(0,new Scanner(in));
         System.setIn(sysInBackup);
 
         //Check shields, should be 1 instead of 0
