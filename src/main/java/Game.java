@@ -417,7 +417,18 @@ public class Game {
             flush();
             for(int i=0;i<currentEventCard.value;i++)
             {
+                askForParticipation(s);
+                if(eligiblePlayers.size()==0)
+                {
+                    ResolveQuest(s);
+                    break;
+                }
                 startRound(i,s);
+                if(eligiblePlayers.size()==0)
+                {
+                    ResolveQuest(s);
+                    break;
+                }
             }
         }
 
@@ -539,6 +550,8 @@ public class Game {
             trimCards(sponsor,s);
         }
         sponsor=null;
+        stage.clear();
+        eligiblePlayers.clear();
 
     }
 
