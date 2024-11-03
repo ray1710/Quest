@@ -249,7 +249,7 @@ public class ATEST {
         System.setIn(sysInBackup);
         //Stage 4
 
-        game.SetEligiblePlayers(2);
+        game.SetEligiblePlayers(3);
 
         sysInBackup = in;
         in = new ByteArrayInputStream("Y\nY\n".getBytes());
