@@ -334,7 +334,7 @@ public class Game {
     public void playEventCard()
     {
         System.out.println("The event card: "+currentEventCard.name);
-        if(currentEventCard.name=="Plague")
+        if(Objects.equals(currentEventCard.name, "Plague"))
         {
             if(currentPlayer.shields==1)
             {
@@ -345,12 +345,12 @@ public class Game {
                 currentPlayer.shields= currentPlayer.shields-2;
             }
         }
-        else if(currentEventCard.name=="Queen’s favor")
+        else if(Objects.equals(currentEventCard.name, "Queen’s favor"))
         {
             addAdventureCard(2,currentPlayer);
             trimCards(currentPlayer,new Scanner(in));
         }
-        else if(currentEventCard.name=="Prosperity")
+        else if(Objects.equals(currentEventCard.name, "Prosperity"))
         {
             addAdventureCard(2,playerOne);
             addAdventureCard(2,playerTwo);
