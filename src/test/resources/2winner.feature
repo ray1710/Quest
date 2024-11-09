@@ -40,6 +40,8 @@ Feature: 2 winner Scenario
     And P2 and P4 agree to participate for stage 3.0
     And Eligible Players build Attack and attack Stage 3 "3\n5\nQuit\n7\nQuit\n1\n1\n1\n1\n1\n1\n1"
     And "Player 2, Player 4" are winners
+    And P2 has 7 Shields
+    And P4 has 7 Shields
 
 
 

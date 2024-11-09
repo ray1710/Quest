@@ -14,6 +14,7 @@ Feature: A1 Scenario
     And P1 P3 and P4 Agree to Participate In Stage 2 and get new Cards
     And Eligible Players build Attack and attack Stage 2 "7\n6\nQuit\n9\n4\nQuit\n6\n7\nQuit\n"
     And P1 did not Beat Stage 2
+    And P1 has 9 Cards
     And P3 beat Stage 2
     And P4 beat Stage 2
     And P3 and P4 Agree to Participate In Stage 3 and get new Cards
@@ -26,6 +27,9 @@ Feature: A1 Scenario
     And P2 has 0 Shields
     And P3 has 0 Shields
     And P4 has 4 Shields
+    And P3 has 5 Cards
+    And P4 has 4 Cards
+
 
 
 

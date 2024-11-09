@@ -52,7 +52,9 @@ Feature: 1 winner with events
     And P2, P3, and P4 agree to participate for stage 3 in Scenario 3
     And Eligible Players build Attack and attack Stage 3 "1\nQuit\n1\nQuit\n13\n13\n13\n13\n13"
     And "Player 3" are winners
-
+    And P2 has 5 Shields
+    And P3 has 7 Shields
+    And P4 has 4 Shields
 
 
 

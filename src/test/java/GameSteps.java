@@ -642,6 +642,51 @@ public class GameSteps {
         System.setIn(inputStream);
         game.playEventCard();
     }
+    @When("rig a new game of Quest 0Winner")
+    public void rig_a_new_game_of_Quest_0Winner()
+    {
+        game=new Game();
+        game.distributeCards();
+        game.playerOne.deck.set(0,new Card("F5","Foe",5));
+        game.playerOne.deck.set(1,new Card("F5","Foe",5));
+    }
+
+    @Then("the Quest is resolved")
+    public void the_Quest_is_resolved()
+    {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream("13\n13\n".getBytes());
+        System.setIn(inputStream);
+        game.ResolveQuest(new Scanner(inputStream));
+    }
+    @Then("P{int} has {int} Cards")
+    public void player_has_num_cards(int player, int num)
+    {
+        if(player==1)
+        {
+           assertEquals(game.playerOne.deck.size(),num);
+        }
+        else if(player==2)
+        {
+            assertEquals(game.playerTwo.deck.size(),num);
+
+        }
+        else if(player==3)
+        {
+            assertEquals(game.playerThree.deck.size(),num);
+
+        }
+        else if(player==4)
+        {
+            assertEquals(game.playerFour.deck.size(),num);
+
+        }
+    }
+
+
+
+
+
+
 
 
 
