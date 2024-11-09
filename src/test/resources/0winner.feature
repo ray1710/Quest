@@ -12,6 +12,14 @@ Feature: 0 winner
     And P3 did not Beat Stage 1
     And P4 did not Beat Stage 1
     And the Quest is resolved
+    And P1 has 0 Shields
+    And P2 has 0 Shields
+    And P3 has 0 Shields
+    And P4 has 0 Shields
     And P1 has 12 Cards
+    And P2 has 12 Cards
+    And P3 has 12 Cards
+    And P4 has 12 Cards
+
 
 
